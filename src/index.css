@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #ee4d2d;
+  --columns-7xl: 80rem;
+  --spacing-4: 1rem;
+}
+
+@layer components {
+  .my-container {
+    max-width: var(--columns-7xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+}
+
+html {
+  height: 100%;
+  line-height: 1.2;
+}
+
+body {
+  font-family:
+    'Helvetica Neue',
+    Helvetica,
+    Arial sans-serif;
+  font-weight: 400;
+  position: relative;
+}
+
+.root {
+  isolation: isolate;
+}
+
+button {
+  cursor: pointer;
+}
