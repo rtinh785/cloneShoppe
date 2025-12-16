@@ -1,24 +1,28 @@
+import type { InputHTMLAttributes } from 'react'
 import type { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-interface Props<T extends FieldValues> {
-  type: string
+interface Props<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   errorsMessage?: string
-  placeHolder?: string
-  className?: string
+  classNameInput?: string
+  classNameError?: string
   name: Path<T>
-  register: UseFormRegister<T>
+  register?: UseFormRegister<T>
 }
 
-const Input = <T extends FieldValues>({ type, errorsMessage, placeHolder, className, name, register }: Props<T>) => {
+const Input = <T extends FieldValues>({
+  classNameInput = 'p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm',
+  classNameError = 'mt-1 text-red-600 min-h-5 text-sm',
+  errorsMessage,
+  className,
+  name,
+  register,
+  ...rest
+}: Props<T>) => {
+  const registerResult = register && name ? register(name) : {}
   return (
     <div className={className}>
-      <input
-        type={type}
-        className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
-        placeholder={placeHolder}
-        {...register(name)}
-      />
-      <div className='mt-1 text-red-600 min-h-5 text-sm'>{errorsMessage}</div>
+      <input className={classNameInput} {...registerResult} {...rest} />
+      <p className={classNameError}>{errorsMessage}</p>
     </div>
   )
 }

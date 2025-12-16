@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/Input/Input'
 import { schemaLogin, type FormDataLogin } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { loginAccount } from '../../apis/auth.api'
+import authApi from '../../apis/auth.api'
 import { useMutation } from '@tanstack/react-query'
 import { isAxiosUnprocessableEntityError } from '../../utils/utils'
 import type { SuccessResponse } from '../../types/utils.type'
@@ -19,17 +19,16 @@ const Login = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isLoading }
+    formState: { errors }
   } = useForm<FormDataLogin>({
     resolver: yupResolver(schemaLogin)
   })
 
   const loginAccountMutation = useMutation({
-    mutationFn: loginAccount
+    mutationFn: authApi.loginAccount
   })
 
   const onSubmit = handleSubmit((data) => {
-    console.log('isLoading', isLoading)
     loginAccountMutation.mutate(data, {
       onSuccess: (data) => {
         setProfile(data.data.data.user)
@@ -58,39 +57,39 @@ const Login = () => {
 
   return (
     <div className='bg-primary'>
-      <div className=' my-container'>
+      <div className='my-container'>
         <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='p-10 rounded bg-white shadow-sm' onSubmit={onSubmit} noValidate>
-              <div className='text-2xl mb-6'>Đăng nhập</div>
+            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
+              <div className='mb-6 text-2xl'>Đăng nhập</div>
 
               <Input<FormDataLogin>
                 type='email'
                 name='email'
                 register={register}
                 errorsMessage={errors.email?.message}
-                placeHolder='Tài khoản'
+                placeholder='Tài khoản'
               />
 
               <Input<FormDataLogin>
                 type='password'
                 errorsMessage={errors.password?.message}
-                placeHolder='Password'
+                placeholder='Password'
                 className='mt-2'
                 name='password'
                 register={register}
               />
               <div className='mt-3'>
                 <Button
-                  className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600 flex justify-center items-center'
+                  className='flex w-full items-center justify-center bg-red-500 px-2 py-4 text-center text-sm text-white uppercase hover:bg-red-600'
                   isLoading={loginAccountMutation.isPending}
                 >
                   Đăng nhập
                 </Button>
               </div>
-              <div className='flex items-center justify-center mt-8'>
+              <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-300'>Bạn chưa có tài khoản?</span>
-                <Link className='text-red-400 ml-1' to={path.register}>
+                <Link className='ml-1 text-red-400' to={path.register}>
                   Đăng ký
                 </Link>
               </div>

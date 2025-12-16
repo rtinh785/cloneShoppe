@@ -23,7 +23,7 @@ const Popover = ({ className, children, renderPopover, initVaule = false }: Prob
           <Portal keepMounted>
             <Positioner sideOffset={8} align='end'>
               <Popup
-                className=' rounded-lg bg-white px-3 py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 '
+                className='rounded-lg bg-white px-3 py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200'
                 render={
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
@@ -34,7 +34,7 @@ const Popover = ({ className, children, renderPopover, initVaule = false }: Prob
                   />
                 }
               >
-                <Arrow className=' data-[side=bottom]:-top-2 data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180 '>
+                <Arrow className='data-[side=bottom]:-top-2 data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180'>
                   <ArrowSvg />
                 </Arrow>
                 {renderPopover}

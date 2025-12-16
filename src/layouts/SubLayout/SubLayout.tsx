@@ -9,7 +9,7 @@ const SubLayout = ({ children, title }: Props) => {
   return (
     <div>
       <SubHeader title={title} />
-      {children}
+      <main> {children}</main>
       <Footer />
     </div>
   )

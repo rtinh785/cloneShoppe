@@ -5,8 +5,8 @@ import { useMutation } from '@tanstack/react-query'
 import { omit } from 'lodash'
 import { toast } from 'react-toastify'
 
-import { registerAccount } from '../../apis/auth.api'
-import { schema, type FormData } from '../../utils/rules'
+import authApi from '../../apis/auth.api'
+import { schemaRegister, type FormData } from '../../utils/rules'
 import Input from '../../components/Input/index'
 import { isAxiosUnprocessableEntityError } from '../../utils/utils'
 import type { ErroResponse } from '../../types/utils.type'
@@ -21,11 +21,11 @@ const Register = () => {
     reset,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schemaRegister)
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: registerAccount
+    mutationFn: authApi.registerAccount
   })
 
   const onSubmit = handleSubmit((data) => {
@@ -51,15 +51,15 @@ const Register = () => {
 
   return (
     <div className='bg-primary'>
-      <div className=' my-container'>
+      <div className='my-container'>
         <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='p-10 rounded bg-white shadow-sm' onSubmit={onSubmit} noValidate>
+            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
               <div className='text-2xl'>Đăng ký</div>
               <Input<FormData>
                 type='email'
                 errorsMessage={errors.email?.message}
-                placeHolder='Email'
+                placeholder='Email'
                 className='mt-8'
                 name='email'
                 register={register}
@@ -67,7 +67,7 @@ const Register = () => {
               <Input<FormData>
                 type='password'
                 errorsMessage={errors.password?.message}
-                placeHolder='Password'
+                placeholder='Password'
                 className='mt-2'
                 name='password'
                 register={register}
@@ -76,7 +76,7 @@ const Register = () => {
               <Input<FormData>
                 type='password'
                 errorsMessage={errors.confirm_password?.message}
-                placeHolder='Confirm password'
+                placeholder='Confirm password'
                 className='mt-2'
                 name='confirm_password'
                 register={register}
@@ -84,16 +84,16 @@ const Register = () => {
 
               <div className='mt-2'>
                 <Button
-                  className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600 flex justify-center items-center'
+                  className='flex w-full items-center justify-center bg-red-500 px-2 py-4 text-center text-sm text-white uppercase hover:bg-red-600'
                   isLoading={registerAccountMutation.isPending}
                 >
                   Đăng ký
                 </Button>
               </div>
 
-              <div className='flex items-center justify-center mt-8'>
+              <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-300'>Bạn đã có tài khoản?</span>
-                <Link className='text-red-400 ml-1' to={path.login}>
+                <Link className='ml-1 text-red-400' to={path.login}>
                   Đăng nhập
                 </Link>
               </div>
