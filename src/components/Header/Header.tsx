@@ -1,12 +1,30 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import Popover from '../Popover'
-import { Link } from 'react-router-dom'
+import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import authApi from '../../apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from '../../context/app.context'
 import path from '../../constants/path'
+import useQueryConfig from '../../hooks/useQueryConfig'
+import { useForm } from 'react-hook-form'
+import { schemaNameSearch, type FormDataNameSearch } from '../../utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { omit } from 'lodash'
+import { purchaseStatuses } from '../../constants/purchase'
+import purchaseApi from '../../apis/purchases'
+import noProducts from '../../assets/img/noProducts.png'
+import { formatCurrency } from '../../utils/utils'
+
+const MAX_PRODUCT = 5
 
 const Header = () => {
+  const queryConfig = useQueryConfig()
+  const nagivate = useNavigate()
+  const { register, handleSubmit } = useForm<FormDataNameSearch>({
+    defaultValues: { name: '' },
+    resolver: yupResolver(schemaNameSearch)
+  })
+
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutaion = useMutation({
     mutationFn: authApi.logoutAccount,
@@ -14,6 +32,22 @@ const Header = () => {
       setIsAuthenticated(false)
       setProfile(null)
     }
+  })
+
+  const { data: purchasesInCartData } = useQuery({
+    queryKey: ['purchases', { status: purchaseStatuses.inCart }],
+    queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart })
+  })
+  const purchasesInCart = purchasesInCartData?.data.data
+
+  const onSubmitSearch = handleSubmit((data) => {
+    const cofig = queryConfig.order
+      ? omit({ ...queryConfig, name: data.name }, ['order', 'sort_by'])
+      : { ...queryConfig, name: data.name }
+    nagivate({
+      pathname: path.home,
+      search: createSearchParams(cofig).toString()
+    })
   })
 
   return (
@@ -120,14 +154,15 @@ const Header = () => {
               </g>
             </svg>
           </Link>
-          <form className='col-span-9'>
+          <form className='col-span-9' onSubmit={onSubmitSearch}>
             <div className='flex rounded-sm bg-white p-1'>
               <input
                 type='text'
-                name='search'
                 placeholder='Freeship đơn từ 0Đ'
                 className='grow border-none bg-transparent px-3 py-2 text-black outline-none'
+                {...register('name')}
               />
+
               <button className='shrink-0 rounded-sm bg-orange-600 px-6 py-2 hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -151,127 +186,53 @@ const Header = () => {
             <Popover
               className='ml-6 flex translate-x-[-36%] cursor-pointer items-center py-1 hover:text-gray-300'
               renderPopover={
-                <>
+                purchasesInCart ? (
                   <div className='max-w-[400px] text-sm'>
                     <div className='p-2'>
                       <div className='captitalize text-gray-400'>Sản phẩm mới thêm</div>
                       {/* List */}
                       <div className='mt-5'>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
+                        {purchasesInCart.slice(0, MAX_PRODUCT).map((purchase) => (
+                          <div className='mt-2 flex py-2 hover:bg-gray-100' key={purchase._id}>
+                            <div className='shrink-0'>
+                              <img
+                                src={purchase.product.image}
+                                alt={purchase.product.name}
+                                className='h-11 w-11 object-cover'
+                              />
+                            </div>
+                            <div className='ml-2 grow overflow-hidden'>
+                              <div className='truncate'>{purchase.product.name}</div>
+                            </div>
+                            <div className='ml-2 shrink-0'>
+                              <div className='text-orange-500'>đ{formatCurrency(purchase.product.price)}</div>
                             </div>
                           </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
-                            </div>
-                          </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
-                            </div>
-                          </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
-                            </div>
-                          </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
-                            </div>
-                          </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
-                        <div className='mt-4 flex'>
-                          <div className='shrink-0'>
-                            <img
-                              src='https://images.unsplash.com/photo-1542640244-7e672d6cef4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                              alt='img'
-                              className='h-11 w-11 object-cover'
-                            />
-                          </div>
-                          <div className='ml-2 grow overflow-hidden'>
-                            <div className='truncate'>
-                              [LIFEMCMBP2 -12% đơn 250k] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16, 20, 24cm
-                            </div>
-                          </div>
-                          <div className='ml-2 shrink-0'>
-                            <div className='text-orange-500'>đ469.000</div>
-                          </div>
-                        </div>
+                        ))}
                       </div>
                       <div className='mt-8 flex items-center justify-between'>
-                        <div className='text-xs text-gray-500 capitalize'>Thêm vào giỏ hàng</div>
+                        <div className='text-xs text-gray-500 capitalize'>
+                          {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''} thêm vào
+                          giỏ hàng
+                        </div>
                         <button className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'>
                           Xem giỏ hàng
                         </button>
                       </div>
                     </div>
                   </div>
-                </>
+                ) : (
+                  <div className='flex size-[400px] flex-col items-center justify-center'>
+                    <img src={noProducts} alt='noProducts' className='size-30 object-cover' />
+                    <div className='mt-3 text-sm'>Chưa có sản phẩm trong giỏ hàng</div>
+                  </div>
+                )
               }
             >
-              <Link to='/'>
+              <Link to='/' className='relative'>
+                <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-px text-xs text-orange-600'>
+                  {purchasesInCart?.length}
+                </span>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
