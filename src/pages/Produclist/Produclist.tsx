@@ -1,6 +1,6 @@
-import AsideFilter from './AsideFilter'
-import SortProducList from './SortProductList/SortProducList'
-import Product from './Product/index'
+import AsideFilter from './components/AsideFilter'
+import SortProducList from './components/SortProductList/SortProducList'
+import Product from './components/Product/index'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import productApi from '../../apis/product.api'
 import useQueryParams from '../../hooks/useQueryParams'
@@ -13,7 +13,7 @@ export type QueryConfig = {
   [key in keyof ProductListConfig]: string
 }
 
-const Produclist = () => {
+const ProducList = () => {
   const queryParams: QueryConfig = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
     {
@@ -76,4 +76,4 @@ const Produclist = () => {
   )
 }
 
-export default Produclist
+export default ProducList

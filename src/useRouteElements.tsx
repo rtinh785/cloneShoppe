@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import Produclist from './pages/Produclist'
+import ProducList from './pages/ProducList'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import SubLayout from './layouts/SubLayout'
@@ -8,6 +8,7 @@ import Profile from './pages/Profile'
 import { useContext } from 'react'
 import { AppContext } from './context/app.context'
 import path from './constants/path'
+import ProductDetail from './pages/ProductDetail'
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtecedRoute = () => {
@@ -28,7 +29,16 @@ const useRouteElements = () => {
       index: true,
       element: (
         <MainLayout>
-          <Produclist />
+          <ProducList />
+        </MainLayout>
+      )
+    },
+
+    {
+      path: path.productDetail,
+      element: (
+        <MainLayout>
+          <ProductDetail />
         </MainLayout>
       )
     },

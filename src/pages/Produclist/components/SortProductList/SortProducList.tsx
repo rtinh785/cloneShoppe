@@ -1,9 +1,9 @@
-import { sortBy, order as orderConstants } from '../../../constants/products'
-import type { ProductListConfig } from '../../../types/product.type'
-import type { QueryConfig } from '../Produclist'
+import { sortBy, order as orderConstants } from '../../../../constants/products'
+import type { ProductListConfig } from '../../../../types/product.type'
+import type { QueryConfig } from '../../ProducList'
 import classnames from 'classnames'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
-import path from '../../../constants/path'
+import path from '../../../../constants/path'
 import { omit } from 'lodash'
 
 interface PaginationProps {

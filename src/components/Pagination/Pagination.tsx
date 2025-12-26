@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import type { QueryConfig } from '../../pages/Produclist/Produclist'
+import type { QueryConfig } from '../../pages/ProducList/ProducList'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from '../../constants/path'
 
