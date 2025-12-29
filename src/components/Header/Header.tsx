@@ -1,12 +1,24 @@
 import { useMutation } from '@tanstack/react-query'
 import Popover from '../Popover'
-import { Link } from 'react-router-dom'
+import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import authApi from '../../apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from '../../context/app.context'
 import path from '../../constants/path'
+import useQueryConfig from '../../hooks/useQueryConfig'
+import { useForm } from 'react-hook-form'
+import { schemaNameSearch, type FormDataNameSearch } from '../../utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { omit } from 'lodash'
 
 const Header = () => {
+  const queryConfig = useQueryConfig()
+  const nagivate = useNavigate()
+  const { register, handleSubmit } = useForm<FormDataNameSearch>({
+    defaultValues: { name: '' },
+    resolver: yupResolver(schemaNameSearch)
+  })
+
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutaion = useMutation({
     mutationFn: authApi.logoutAccount,
@@ -14,6 +26,15 @@ const Header = () => {
       setIsAuthenticated(false)
       setProfile(null)
     }
+  })
+  const onSubmitSearch = handleSubmit((data) => {
+    const cofig = queryConfig.order
+      ? omit({ ...queryConfig, name: data.name }, ['order', 'sort_by'])
+      : { ...queryConfig, name: data.name }
+    nagivate({
+      pathname: path.home,
+      search: createSearchParams(cofig).toString()
+    })
   })
 
   return (
@@ -120,14 +141,15 @@ const Header = () => {
               </g>
             </svg>
           </Link>
-          <form className='col-span-9'>
+          <form className='col-span-9' onSubmit={onSubmitSearch}>
             <div className='flex rounded-sm bg-white p-1'>
               <input
                 type='text'
-                name='search'
                 placeholder='Freeship đơn từ 0Đ'
                 className='grow border-none bg-transparent px-3 py-2 text-black outline-none'
+                {...register('name')}
               />
+
               <button className='shrink-0 rounded-sm bg-orange-600 px-6 py-2 hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

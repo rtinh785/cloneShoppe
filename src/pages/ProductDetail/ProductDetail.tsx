@@ -2,13 +2,16 @@ import { useParams } from 'react-router-dom'
 import productApi from '../../apis/product.api'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import ProductRating from '../../components/ProductRating'
-import { formatCurrency, formatNumberToSocialStyle, rateSale } from '../../utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from '../../utils/utils'
 import InputNumber from '../../components/InputNumber'
 import DOMPurify from 'dompurify'
-import { useEffect, useMemo, useState } from 'react'
-import type { Product } from '../../types/product.type'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { Product as ProductType, ProductListConfig } from '../../types/product.type'
+import Product from '../ProducList/components/Product'
+
 const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>()
+  const { nameId } = useParams<{ nameId: string }>()
+  const id = getIdFromNameId(nameId as string)
 
   const { data: productDetailData } = useQuery({
     queryKey: ['product'],
@@ -17,10 +20,25 @@ const ProductDetail = () => {
     },
     placeholderData: keepPreviousData
   })
+
   const product = productDetailData?.data.data
-  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
+
+  const queryConfig: ProductListConfig = { limit: '20', page: '1', category: product?.category._id }
+
+  const { data: productsData } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => {
+      return productApi.getProducts(queryConfig)
+    },
+    enabled: Boolean(product),
+    staleTime: 3 * 60 * 1000 // 3 minutes
+  })
+
+  const imageRef = useRef<HTMLImageElement>(null)
+
   const [activeImage, setActiveImage] = useState('')
 
+  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const currentImages = useMemo(
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [product, currentIndexImages]
@@ -28,12 +46,13 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (product && product.images.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveImage(product.images[0])
     }
   }, [product])
 
   const next = () => {
-    if (currentIndexImages[1] < (product as Product)?.images.length) {
+    if (currentIndexImages[1] < (product as ProductType)?.images.length) {
       setCurrentIndexImages((prev) => [prev[0] + 1, prev[1] + 1])
     }
   }
@@ -48,7 +67,25 @@ const ProductDetail = () => {
     setActiveImage(img)
   }
 
-  console.log(currentImages)
+  const handleZoom = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+
+    const image = imageRef.current as HTMLImageElement
+    const { offsetX, offsetY } = e.nativeEvent
+    const { naturalWidth, naturalHeight } = image
+    const top = offsetY * (1 - naturalHeight / rect.height)
+    const left = offsetX * (1 - naturalWidth / rect.width)
+    image.style.width = `${naturalWidth}px`
+    image.style.height = `${naturalHeight}px`
+    image.style.maxWidth = 'unset'
+    image.style.top = top + 'px'
+    image.style.left = left + 'px'
+  }
+
+  const handleMouseLeave = () => {
+    imageRef.current?.removeAttribute('style')
+  }
+
   if (!product) return null
 
   return (
@@ -57,12 +94,19 @@ const ProductDetail = () => {
         <div className='bg-white p-4 shadow'>
           <div className='grid grid-cols-12 gap-9'>
             <div className='col-span-5'>
-              <div className='relative w-full pt-[100%] shadow'>
-                <img
-                  src={activeImage}
-                  alt={product.name}
-                  className='absolute top-0 left-0 size-full bg-white object-cover'
-                />
+              <div
+                className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'
+                onMouseMove={handleZoom}
+                onMouseLeave={handleMouseLeave}
+              >
+                {activeImage && (
+                  <img
+                    src={activeImage}
+                    alt={product.name}
+                    className='pointer-events-none absolute top-0 left-0 size-full bg-white object-cover'
+                    ref={imageRef}
+                  />
+                )}
               </div>
               <div className='relative mt-4 grid grid-cols-5 gap-1'>
                 <button
@@ -195,6 +239,19 @@ const ProductDetail = () => {
                 __html: DOMPurify.sanitize(product.description)
               }}
             ></div>
+          </div>
+        </div>
+        <div className='mt-8'>
+          <div className='my-container'>
+            <div className='text-gray-400 uppercase'> CÓ THỂ BẠN CŨNG THÍCH</div>
+            <section className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+              {productsData &&
+                productsData.data.data.products.map((product) => (
+                  <div className='col-span-1' key={product._id}>
+                    <Product product={product}></Product>
+                  </div>
+                ))}
+            </section>
           </div>
         </div>
       </section>

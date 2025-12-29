@@ -1,7 +1,7 @@
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import Button from '../../../../components/Button'
-import type { QueryConfig } from '../../Produclist'
+
 import type { Categories } from '../../../../types/category.type'
 import classnames from 'classnames'
 import InputNumber from '../../../../components/InputNumber'
@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaPrice, type FormDataPrice } from '../../../../utils/rules'
 import RatingStarts from '../RatingStarts'
 import { omit } from 'lodash'
+import type { QueryConfig } from '../../Produclist'
 
 interface AsideFilterProps {
   queryConfig: QueryConfig
@@ -22,6 +23,7 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
     control,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<FormDataPrice>({
     defaultValues: {
@@ -47,6 +49,7 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
   })
 
   const handleRemoveAll = () => {
+    reset()
     nagivate({
       pathname: path.home,
       search: createSearchParams(
