@@ -14,6 +14,7 @@ import { purchaseStatuses } from '../../constants/purchase'
 import purchaseApi from '../../apis/purchases'
 import noProducts from '../../assets/img/noProducts.png'
 import { formatCurrency } from '../../utils/utils'
+import { queryClient } from '../../main'
 
 const MAX_PRODUCT = 5
 
@@ -31,12 +32,14 @@ const Header = () => {
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
+      queryClient.removeQueries({ queryKey: ['purchases', { status: purchaseStatuses.inCart }] })
     }
   })
 
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchaseStatuses.inCart }],
-    queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart })
+    queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart }),
+    enabled: isAuthenticated
   })
   const purchasesInCart = purchasesInCartData?.data.data
 
@@ -215,9 +218,12 @@ const Header = () => {
                           {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''} thêm vào
                           giỏ hàng
                         </div>
-                        <button className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'>
+                        <Link
+                          to={path.cart}
+                          className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'
+                        >
                           Xem giỏ hàng
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -230,9 +236,12 @@ const Header = () => {
               }
             >
               <Link to='/' className='relative'>
-                <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-px text-xs text-orange-600'>
-                  {purchasesInCart?.length}
-                </span>
+                {isAuthenticated && (
+                  <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-px text-xs text-orange-600'>
+                    {purchasesInCart?.length}
+                  </span>
+                )}
+
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
