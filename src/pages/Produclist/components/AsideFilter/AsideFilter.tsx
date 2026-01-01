@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaPrice, type FormDataPrice } from '../../../../utils/rules'
 import RatingStarts from '../RatingStarts'
 import { omit } from 'lodash'
-import type { QueryConfig } from '../../Produclist'
+import type { QueryConfig } from '../../ProducList'
 
 interface AsideFilterProps {
   queryConfig: QueryConfig
