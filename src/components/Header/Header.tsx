@@ -1,39 +1,21 @@
-<<<<<<< HEAD
 import { useQuery } from '@tanstack/react-query'
 import Popover from '../Popover'
 import { Link } from 'react-router-dom'
-=======
-import { useMutation, useQuery } from '@tanstack/react-query'
-import Popover from '../Popover'
-import { createSearchParams, Link, useNavigate } from 'react-router-dom'
-import authApi from '../../apis/auth.api'
->>>>>>> f00e46e4b57378d3be976f2bae204128df915a82
 import { useContext } from 'react'
 import { AppContext } from '../../context/app.context'
 import path from '../../constants/path'
-import useQueryConfig from '../../hooks/useQueryConfig'
-import { useForm } from 'react-hook-form'
-import { schemaNameSearch, type FormDataNameSearch } from '../../utils/rules'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { omit } from 'lodash'
-import { purchaseStatuses } from '../../constants/purchase'
-import purchaseApi from '../../apis/purchases'
-import noProducts from '../../assets/img/noProducts.png'
-import { formatCurrency } from '../../utils/utils'
-
-const MAX_PRODUCT = 5
 
 import { purchaseStatuses } from '../../constants/purchase'
 import purchaseApi from '../../apis/purchases'
 import noProducts from '../../assets/img/noProducts.png'
 import { formatCurrency } from '../../utils/utils'
+
 import NavHeader from '../NavHeader/NavHeader'
 import useSearchProducts from '../../hooks/useSearchProducts'
 
 const MAX_PRODUCT = 5
 
 const Header = () => {
-<<<<<<< HEAD
   const { register, onSubmitSearch } = useSearchProducts()
   const { isAuthenticated } = useContext(AppContext)
 
@@ -41,40 +23,8 @@ const Header = () => {
     queryKey: ['purchases', { status: purchaseStatuses.inCart }],
     queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart }),
     enabled: isAuthenticated
-=======
-  const queryConfig = useQueryConfig()
-  const nagivate = useNavigate()
-  const { register, handleSubmit } = useForm<FormDataNameSearch>({
-    defaultValues: { name: '' },
-    resolver: yupResolver(schemaNameSearch)
-  })
-
-  const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
-  const logoutMutaion = useMutation({
-    mutationFn: authApi.logoutAccount,
-    onSuccess: () => {
-      setIsAuthenticated(false)
-      setProfile(null)
-    }
->>>>>>> f00e46e4b57378d3be976f2bae204128df915a82
   })
   const purchasesInCart = purchasesInCartData?.data.data || []
-
-  const { data: purchasesInCartData } = useQuery({
-    queryKey: ['purchases', { status: purchaseStatuses.inCart }],
-    queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart })
-  })
-  const purchasesInCart = purchasesInCartData?.data.data
-
-  const onSubmitSearch = handleSubmit((data) => {
-    const cofig = queryConfig.order
-      ? omit({ ...queryConfig, name: data.name }, ['order', 'sort_by'])
-      : { ...queryConfig, name: data.name }
-    nagivate({
-      pathname: path.home,
-      search: createSearchParams(cofig).toString()
-    })
-  })
 
   return (
     <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pt-2 pb-5 text-white'>
@@ -119,11 +69,7 @@ const Header = () => {
             <Popover
               className='ml-6 flex translate-x-[-36%] cursor-pointer items-center py-1 hover:text-gray-300'
               renderPopover={
-<<<<<<< HEAD
                 purchasesInCart?.length > 0 ? (
-=======
-                purchasesInCart ? (
->>>>>>> f00e46e4b57378d3be976f2bae204128df915a82
                   <div className='max-w-[400px] text-sm'>
                     <div className='p-2'>
                       <div className='captitalize text-gray-400'>Sản phẩm mới thêm</div>
@@ -151,14 +97,10 @@ const Header = () => {
                           {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''} thêm vào
                           giỏ hàng
                         </div>
-<<<<<<< HEAD
                         <Link
                           to={path.cart}
                           className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'
                         >
-=======
-                        <button className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'>
->>>>>>> f00e46e4b57378d3be976f2bae204128df915a82
                           Xem giỏ hàng
                         </Link>
                       </div>
@@ -173,18 +115,12 @@ const Header = () => {
               }
             >
               <Link to='/' className='relative'>
-<<<<<<< HEAD
                 {isAuthenticated && purchasesInCart?.length > 0 && (
                   <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-px text-xs text-orange-600'>
                     {purchasesInCart?.length}
                   </span>
                 )}
 
-=======
-                <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-px text-xs text-orange-600'>
-                  {purchasesInCart?.length}
-                </span>
->>>>>>> f00e46e4b57378d3be976f2bae204128df915a82
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
