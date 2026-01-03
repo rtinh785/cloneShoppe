@@ -14,6 +14,7 @@ export const queryClient = new QueryClient({
     }
   }
 })
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -21,7 +22,6 @@ createRoot(document.getElementById('root')!).render(
         <AppProvider>
           <App />
         </AppProvider>
-
         <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
       </QueryClientProvider>
     </BrowserRouter>

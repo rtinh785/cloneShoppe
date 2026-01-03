@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import { omit } from 'lodash'
-import type { QueryConfig } from '../../Produclist'
+import type { QueryConfig } from '../../ProducList'
 
 interface PaginationProps {
   queryConfig: QueryConfig

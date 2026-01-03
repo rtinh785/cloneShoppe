@@ -28,25 +28,27 @@ const Register = () => {
     mutationFn: authApi.registerAccount
   })
 
-  const onSubmit = handleSubmit((data) => {
-    const body = omit(data, ['confirm_password'])
-    registerAccountMutation.mutate(body, {
-      onSuccess: () => {
-        toast('Bạn đã đăng ký thành công')
-        reset()
-      },
-      onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErroResponse<Omit<FormData, 'confirm_password'>>>(error)) {
-          const formError = error.response?.data.data
-          if (formError?.email) {
-            setError('email', {
-              message: formError.email,
-              type: 'Server'
-            })
+  const onSubmit = handleSubmit(({ email, password }) => {
+    registerAccountMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          toast('Bạn đã đăng ký thành công')
+          reset()
+        },
+        onError: (error) => {
+          if (isAxiosUnprocessableEntityError<ErroResponse<Omit<FormData, 'confirm_password'>>>(error)) {
+            const formError = error.response?.data.data
+            if (formError?.email) {
+              setError('email', {
+                message: formError.email,
+                type: 'Server'
+              })
+            }
           }
         }
       }
-    })
+    )
   })
 
   return (
