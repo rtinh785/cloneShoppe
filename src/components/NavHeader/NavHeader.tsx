@@ -103,12 +103,12 @@ const NavHeader = () => {
         </Popover>
       ) : (
         <div className='flex items-center'>
-          <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
-            Đăng ký
-          </Link>
-          <div className='h-4 border-r border-r-white/40'></div>
           <Link to={path.login} className='mx-3 capitalize hover:text-white/70'>
             Đăng nhập
+          </Link>
+          <div className='h-4 border-r border-r-white/40'></div>
+          <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
+            Đăng ký
           </Link>
         </div>
       )}

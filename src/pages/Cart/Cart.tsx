@@ -3,35 +3,40 @@ import { purchaseStatuses } from '../../constants/purchase'
 import purchaseApi from '../../apis/purchases'
 
 import path from '../../constants/path'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { formatCurrency, generateNameId } from '../../utils/utils'
 import QuantityController from '../../components/QuantityController/index'
 import Button from '../../components/Button'
-import { useEffect, useState } from 'react'
-import type { Purchase } from '../../types/purchases.type'
+import { useContext, useEffect, useMemo } from 'react'
+
 import { produce } from 'immer'
 import { queryClient } from '../../main'
 import noProducts from '../../assets/img/noProducts.png'
 import { toast } from 'react-toastify'
-
-interface ExtendedPurchase extends Purchase {
-  checked: boolean
-  disable: boolean
-}
+import { AppContext } from '../../context/app.context'
 
 const Cart = () => {
-  const [extendedPurchases, setExtendedPurchases] = useState<ExtendedPurchase[]>([])
+  const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
 
-  const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
-  const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
+  const isAllChecked = useMemo(() => extendedPurchases.every((purchase) => purchase.checked), [extendedPurchases])
+  const checkedPurchases = useMemo(() => extendedPurchases.filter((purchase) => purchase.checked), [extendedPurchases])
   const checkedPurchasesCount = checkedPurchases.length
-  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
-    return result + current.product.price * current.buy_count
-  }, 0)
-  const totalCheckedPurchasesSavingPrice = checkedPurchases.reduce((result, current) => {
-    return result + (current.product.price_before_discount - current.product.price) * current.buy_count
-  }, 0)
-
+  const totalCheckedPurchasesPrice = useMemo(
+    () =>
+      checkedPurchases.reduce((result, current) => {
+        return result + current.product.price * current.buy_count
+      }, 0),
+    [checkedPurchases]
+  )
+  const totalCheckedPurchasesSavingPrice = useMemo(
+    () =>
+      checkedPurchases.reduce((result, current) => {
+        return result + (current.product.price_before_discount - current.product.price) * current.buy_count
+      }, 0),
+    [checkedPurchases]
+  )
+  const location = useLocation()
+  const purchaseId = (location.state as { purchaseId: string } | null)?.purchaseId
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchaseStatuses.inCart }],
     queryFn: () => purchaseApi.getPurchasesList({ status: purchaseStatuses.inCart })
@@ -68,13 +73,19 @@ const Cart = () => {
       purchasesInCartData?.data.data.map((purchase, index) => {
         return {
           ...purchase,
-          checked: extendedPurchases[index]?.checked || false,
+          checked: purchase._id === purchaseId ? true : extendedPurchases[index]?.checked || false,
           disable: false
         }
       }) || []
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [purchasesInCartData])
+
+  useEffect(() => {
+    return () => {
+      history.replaceState(null, '')
+    }
+  }, [])
 
   const handleChecked = (productIndex: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setExtendedPurchases(
