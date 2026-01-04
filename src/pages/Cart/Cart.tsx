@@ -1,14 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { purchaseStatuses } from '../../constants/purchase'
 import purchaseApi from '../../apis/purchases'
-
 import path from '../../constants/path'
 import { Link, useLocation } from 'react-router-dom'
 import { formatCurrency, generateNameId } from '../../utils/utils'
 import QuantityController from '../../components/QuantityController/index'
 import Button from '../../components/Button'
 import { useContext, useEffect, useMemo } from 'react'
-
 import { produce } from 'immer'
 import { queryClient } from '../../main'
 import noProducts from '../../assets/img/noProducts.png'
