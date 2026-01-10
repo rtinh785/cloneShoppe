@@ -3,9 +3,10 @@ import { toast } from 'react-toastify'
 import type { AuthResponse } from '../types/auth.type'
 import { clearLocalStorage, getAccesTokenFromLS, saveAccesTokenToLS, setProfileToLS } from './auth'
 import path from '../constants/path'
+import config from '../constants/config'
 
 const http = axios.create({
-  baseURL: 'https://api-ecom.duthanhduoc.com/',
+  baseURL: config.baseURL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -43,6 +44,9 @@ http.interceptors.response.use(
     if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
       const message = error.message
       toast(message)
+    }
+    if (error.response?.status === HttpStatusCode.Unauthorized) {
+      clearLocalStorage()
     }
 
     return Promise.reject(error)

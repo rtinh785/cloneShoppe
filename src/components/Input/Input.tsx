@@ -5,7 +5,7 @@ interface Props<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElem
   errorsMessage?: string
   classNameInput?: string
   classNameError?: string
-  name: Path<T>
+  name?: Path<T>
   register?: UseFormRegister<T>
 }
 

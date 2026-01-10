@@ -4,13 +4,19 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import SubLayout from './layouts/SubLayout'
 import MainLayout from './layouts/MainLayout'
-import Profile from './pages/Profile'
+
 import { useContext } from 'react'
 import { AppContext } from './context/app.context'
 import path from './constants/path'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import CartLayout from './layouts/CartLayout'
+
+import UserLayout from './pages/User/layouts/UserLayout/index'
+import ChangePassword from './pages/User/pages/ChangePassword/ChangePassword'
+
+import Profile from './pages/User/pages/Profile'
+import HistoryPurchase from './pages/User/pages/HistoryPurchase/HistoryPurchase'
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtecedRoute = () => {
@@ -50,13 +56,28 @@ const useRouteElements = () => {
       element: <ProtecedRoute />,
       children: [
         {
-          path: path.profile,
+          path: path.user,
           element: (
             <MainLayout>
-              <Profile />
+              <UserLayout />
             </MainLayout>
-          )
+          ),
+          children: [
+            {
+              path: path.profile,
+              element: <Profile />
+            },
+            {
+              path: path.changePassword,
+              element: <ChangePassword />
+            },
+            {
+              path: path.historyPurchase,
+              element: <HistoryPurchase />
+            }
+          ]
         },
+
         {
           path: path.cart,
           element: (

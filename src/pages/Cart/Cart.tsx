@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { purchaseStatuses } from '../../constants/purchase'
 import purchaseApi from '../../apis/purchases'
 import path from '../../constants/path'
@@ -8,14 +8,13 @@ import QuantityController from '../../components/QuantityController/index'
 import Button from '../../components/Button'
 import { useContext, useEffect, useMemo } from 'react'
 import { produce } from 'immer'
-import { queryClient } from '../../main'
 import noProducts from '../../assets/img/noProducts.png'
 import { toast } from 'react-toastify'
 import { AppContext } from '../../context/app.context'
 
 const Cart = () => {
   const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
-
+  const queryClient = useQueryClient()
   const isAllChecked = useMemo(() => extendedPurchases.every((purchase) => purchase.checked), [extendedPurchases])
   const checkedPurchases = useMemo(() => extendedPurchases.filter((purchase) => purchase.checked), [extendedPurchases])
   const checkedPurchasesCount = checkedPurchases.length

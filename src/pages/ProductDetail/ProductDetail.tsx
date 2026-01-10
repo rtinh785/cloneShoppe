@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import productApi from '../../apis/product.api'
-import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import ProductRating from '../../components/ProductRating'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from '../../utils/utils'
 import DOMPurify from 'dompurify'
@@ -9,12 +9,12 @@ import type { Product as ProductType, ProductListConfig } from '../../types/prod
 import Product from '../ProducList/components/Product'
 import QuantityController from '../../components/QuantityController'
 import purchaseApi from '../../apis/purchases'
-import { queryClient } from '../../main'
 import { purchaseStatuses } from '../../constants/purchase'
 import { toast } from 'react-toastify'
 import path from '../../constants/path'
 
 const ProductDetail = () => {
+  const queryClient = useQueryClient()
   const [buyCount, setBuyCount] = useState(1)
   const { nameId } = useParams<{ nameId: string }>()
   const id = getIdFromNameId(nameId as string)

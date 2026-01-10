@@ -1,7 +1,6 @@
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import Button from '../../../../components/Button'
-
 import type { Categories } from '../../../../types/category.type'
 import classnames from 'classnames'
 import InputNumber from '../../../../components/InputNumber'
@@ -23,7 +22,6 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
     control,
     handleSubmit,
     trigger,
-    reset,
     formState: { errors }
   } = useForm<FormDataPrice>({
     defaultValues: {
@@ -49,7 +47,6 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
   })
 
   const handleRemoveAll = () => {
-    reset()
     nagivate({
       pathname: path.home,
       search: createSearchParams(

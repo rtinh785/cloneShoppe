@@ -4,13 +4,15 @@ import Popover from '../Popover'
 
 import { useContext } from 'react'
 import { AppContext } from '../../context/app.context'
-import { queryClient } from '../../main'
+
 import { purchaseStatuses } from '../../constants/purchase'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import authApi from '../../apis/auth.api'
+import { getAvatarURL } from '../../utils/utils'
 
 const NavHeader = () => {
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
+  const queryClient = useQueryClient()
   const logoutMutaion = useMutation({
     mutationFn: authApi.logoutAccount,
     onSuccess: () => {
@@ -69,7 +71,7 @@ const NavHeader = () => {
             <>
               <ul>
                 <li>
-                  <Link to='/' className='block px-3 py-2 hover:text-cyan-500'>
+                  <Link to={path.profile} className='block px-3 py-2 hover:text-cyan-500'>
                     Tài khoản của tôi
                   </Link>
                 </li>
@@ -93,13 +95,9 @@ const NavHeader = () => {
           }
         >
           <div className='mr-2 h-6 w-6 shrink-0'>
-            <img
-              src='https://scontent.fvca2-1.fna.fbcdn.net/v/t1.6435-9/34448691_638284539859010_2195386663792803840_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=0bYM9Ls1-yQQ7kNvwGa_TY3&_nc_oc=AdnsdyvQhTeg8O1PJsgvndWLUiWK8hgRxwx-wJ4tKMwZ4A9TlWGVn3NPzGV-ZXAzU3ECag6LZerMBi5rqV7AvYMH&_nc_zt=23&_nc_ht=scontent.fvca2-1.fna&_nc_gid=gUd0XHCSv7ffiAbqAApmNQ&oh=00_Afnl0wS87Pw1a1DsoIkdD6F6pijrOGePuC14GLtr03oLOA&oe=6960E958'
-              alt='avatar'
-              className='w-fill h-full rounded-full object-cover'
-            />
+            <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='w-fill h-full rounded-full object-cover' />
           </div>
-          <span>{profile?.email}</span>
+          <span>{profile?.name ? profile?.name : profile?.email}</span>
         </Popover>
       ) : (
         <div className='flex items-center'>
