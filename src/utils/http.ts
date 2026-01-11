@@ -43,7 +43,7 @@ http.interceptors.response.use(
   function onRejected(error: AxiosError<string>) {
     if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
       const message = error.message
-      toast(message)
+      toast.error(message)
     }
     if (error.response?.status === HttpStatusCode.Unauthorized) {
       clearLocalStorage()

@@ -61,7 +61,7 @@ export const schema = yup.object({
   name: yup.string().trim().required('Bắt buộc phải nhập tên!')
 })
 
-export const schemaRegister = schema.omit(['price_min', 'price_max', 'name'])
+export const schemaRegister = schema.pick(['email', 'password'])
 export const schemaLogin = schema.omit(['confirm_password', 'price_min', 'price_max', 'name'])
 export const schemaPrice = schema.pick(['price_min', 'price_max']) as yup.ObjectSchema<{
   price_min?: string
@@ -69,7 +69,7 @@ export const schemaPrice = schema.pick(['price_min', 'price_max']) as yup.Object
 }>
 export const schemaNameSearch = schema.pick(['name'])
 
-export type FormData = yup.InferType<typeof schema>
+export type FormData = yup.InferType<typeof schemaRegister>
 export type FormDataLogin = yup.InferType<typeof schemaLogin>
 export type FormDataPrice = yup.InferType<typeof schemaPrice>
 export type FormDataNameSearch = yup.InferType<typeof schemaNameSearch>

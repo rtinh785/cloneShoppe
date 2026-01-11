@@ -2,9 +2,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { omit } from 'lodash'
 import { toast } from 'react-toastify'
-
 import authApi from '../../apis/auth.api'
 import { schemaRegister, type FormData } from '../../utils/rules'
 import Input from '../../components/Input/index'
@@ -32,7 +30,8 @@ const Register = () => {
     registerAccountMutation.mutate(
       { email, password },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
+          console.log('register', data)
           toast('Bạn đã đăng ký thành công')
           reset()
         },

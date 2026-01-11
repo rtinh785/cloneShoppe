@@ -1,11 +1,9 @@
 import axios, { AxiosError, HttpStatusCode } from 'axios'
-import config from '../constants/config'
 import defaultAvatar from '../assets/img/defaultAvatar.jpg'
 
 export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
   return axios.isAxiosError(error)
 }
-
 export function isAxiosUnprocessableEntityError<FormError>(error: unknown): error is AxiosError<FormError> {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.UnprocessableEntity
 }
@@ -38,5 +36,4 @@ export const getIdFromNameId = (nameId: string) => {
   return arr[arr.length - 1]
 }
 
-export const getAvatarURL = (avatarName?: string) =>
-  avatarName ? ` ${config.baseURL}images/${avatarName}` : defaultAvatar
+export const getAvatarURL = (avatarName?: string) => (avatarName ? avatarName : defaultAvatar)

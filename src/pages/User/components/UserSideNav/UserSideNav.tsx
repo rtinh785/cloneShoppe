@@ -1,11 +1,13 @@
 import { useContext } from 'react'
 import path from '../../../../constants/path'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { AppContext } from '../../../../context/app.context'
 import { getAvatarURL } from '../../../../utils/utils'
-
+import classnames from 'classnames'
 const UserSideNav = () => {
   const { profile } = useContext(AppContext)
+  const location = useLocation()
+
   return (
     <section>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
@@ -35,7 +37,12 @@ const UserSideNav = () => {
         </div>
       </div>
       <div className='mt-7'>
-        <Link to={path.profile} className='flex items-center text-orange-600 capitalize transition-colors'>
+        <Link
+          to={path.profile}
+          className={classnames('flex items-center text-gray-600 capitalize transition-colors', {
+            'text-orange-600': location.pathname === path.profile
+          })}
+        >
           <div className='mr-3 size-[22px]'>
             <img
               src='https://down-vn.img.susercontent.com/file/ba61750a46794d8847c3f463c5e71cc4'
@@ -44,7 +51,12 @@ const UserSideNav = () => {
           </div>
           Tài khoản của tôi
         </Link>
-        <Link to={path.changePassword} className='mt-4 flex items-center text-gray-600 capitalize transition-colors'>
+        <Link
+          to={path.changePassword}
+          className={classnames('mt-4 flex items-center text-gray-600 capitalize transition-colors', {
+            'text-orange-600': location.pathname === path.changePassword
+          })}
+        >
           <div className='mr-3 size-[22px]'>
             <img
               src='https://down-vn.img.susercontent.com/file/ba61750a46794d8847c3f463c5e71cc4'
@@ -53,7 +65,12 @@ const UserSideNav = () => {
           </div>
           Thay đổi mật khẩu
         </Link>
-        <Link to={path.historyPurchase} className='mt-4 flex items-center text-gray-600 capitalize transition-colors'>
+        <Link
+          to={path.historyPurchase}
+          className={classnames('mt-4 flex items-center text-gray-600 capitalize transition-colors', {
+            'text-orange-600': location.pathname === path.historyPurchase
+          })}
+        >
           <div className='mr-3 size-[22px]'>
             <img
               src='https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078'

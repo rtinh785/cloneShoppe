@@ -7,14 +7,19 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import InputNumber from '../../../../components/InputNumber'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import DateSelect from '../../components/DataSelect/DateSelect'
 import { toast } from 'react-toastify'
 import { AppContext } from '../../../../context/app.context'
 import { setProfileToLS } from '../../../../utils/auth'
-import { getAvatarURL } from '../../../../utils/utils'
+import { getAvatarURL, isAxiosUnprocessableEntityError } from '../../../../utils/utils'
+import type { ErroResponse } from '../../../../types/utils.type'
+import InputFile from '../../../../components/InputFile/InputFile'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
+type FormDataError = Omit<FormData, 'date_of_birth'> & {
+  date_of_birth?: string
+}
 const profileSchema = userSchema.pick([
   'name',
   'address',
@@ -24,7 +29,6 @@ const profileSchema = userSchema.pick([
 ]) as yup.ObjectSchema<FormData>
 
 const Profile = () => {
-  const chooseFileImage = useRef<HTMLInputElement>(null)
   const { setProfile } = useContext(AppContext)
   const [file, setFile] = useState<File>()
   const previewImage = useMemo(() => {
@@ -37,6 +41,7 @@ const Profile = () => {
     handleSubmit,
     setValue,
     watch,
+    setError,
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
@@ -58,7 +63,6 @@ const Profile = () => {
   })
   const profile = profileData?.data.data
 
-  console.log(profile)
   useEffect(() => {
     if (profile) {
       setValue('name', profile.name)
@@ -80,10 +84,10 @@ const Profile = () => {
       })
       setProfile(data.data.data)
       setProfileToLS(data.data.data)
-
       queryClient.invalidateQueries({ queryKey: ['profile'] })
     }
   })
+
   const uploadAvatarMutation = useMutation({
     mutationFn: userApi.uploadAvatar
   })
@@ -103,16 +107,23 @@ const Profile = () => {
         avatar: avatarName
       } as BodyUpdateProfile)
     } catch (error) {
-      console.log(error)
+      if (isAxiosUnprocessableEntityError<ErroResponse<FormDataError>>(error)) {
+        const formError = error.response?.data.data
+
+        if (formError) {
+          Object.keys(formError).forEach((key) => {
+            setError(key as keyof FormDataError, {
+              message: formError[key as keyof FormDataError],
+              type: 'Server'
+            })
+          })
+        }
+      }
     }
   })
 
-  const handleUpload = () => {
-    chooseFileImage.current?.click()
-  }
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileFromLocal = e.target.files?.[0]
-    setFile(fileFromLocal)
+  const handleChange = (file?: File) => {
+    setFile(file)
   }
 
   return (
@@ -209,20 +220,7 @@ const Profile = () => {
                 className='size-full rounded-full object-cover'
               />
             </div>
-            <input
-              className='hidden'
-              type='file'
-              accept='.jpg,.jpeg,.png'
-              ref={chooseFileImage}
-              onChange={onFileChange}
-            />
-            <button
-              className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
-              type='button'
-              onClick={handleUpload}
-            >
-              Chọn ảnh
-            </button>
+            <InputFile onChange={handleChange}></InputFile>
             <div className='mt-3 text-gray-400'>
               <div>Dung lượng file tối đa 1MB</div>
               <div>Định dạng: JPEG, PNG</div>
