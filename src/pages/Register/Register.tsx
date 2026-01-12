@@ -69,8 +69,9 @@ const Register = () => {
                 type='password'
                 errorsMessage={errors.password?.message}
                 placeholder='Password'
-                className='mt-2'
+                className='relative mt-2'
                 name='password'
+                classNameEye='absolute top-[12px] right-[5px] size-5 cursor-pointer'
                 register={register}
               />
 
@@ -78,7 +79,8 @@ const Register = () => {
                 type='password'
                 errorsMessage={errors.confirm_password?.message}
                 placeholder='Confirm password'
-                className='mt-2'
+                className='relative mt-2'
+                classNameEye='absolute top-[12px] right-[5px] size-5 cursor-pointer'
                 name='confirm_password'
                 register={register}
               />

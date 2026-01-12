@@ -61,7 +61,7 @@ export const schema = yup.object({
   name: yup.string().trim().required('Bắt buộc phải nhập tên!')
 })
 
-export const schemaRegister = schema.pick(['email', 'password'])
+export const schemaRegister = schema.pick(['email', 'password', 'confirm_password'])
 export const schemaLogin = schema.omit(['confirm_password', 'price_min', 'price_max', 'name'])
 export const schemaPrice = schema.pick(['price_min', 'price_max']) as yup.ObjectSchema<{
   price_min?: string
@@ -82,9 +82,43 @@ export const userSchema = yup.object({
   address: yup.string().max(160, 'Độ dài tối đa là 160 kí tự'),
   avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 kí tự'),
   date_of_birth: yup.date().max(new Date(), 'Hãy chọn một ngày trong quá khứ'),
-  password: schema.fields['password'],
-  new_password: schema.fields['password'],
-  confirm_password: schema.fields['confirm_password']
+  password: yup
+    .string()
+    .required('Bắt buộc phải nhập password!')
+    .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+    .max(160, 'Độ dài phải từ 6 - 160 kí tự!'),
+  new_password: yup
+    .string()
+    .required('Bắt buộc phải nhập password!')
+    .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+    .max(160, 'Độ dài phải từ 6 - 160 kí tự!'),
+  confirm_password: yup
+    .string()
+    .required('Nhập lại password là bắt buộc!')
+    .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+    .max(160, 'Độ dài phải từ 6 - 160 kí tự!')
+    .oneOf([yup.ref('new_password')], 'Nhập lại password không khớp')
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>
+
+// password: schema.fields['password'],
+// new_password: schema.fields['password'],
+// confirm_password: schema.fields['confirm_password']
+
+// password: yup
+//     .string()
+//     .required('Bắt buộc phải nhập password!')
+//     .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+//     .max(160, 'Độ dài phải từ 6 - 160 kí tự!'),
+//   new_password: yup
+//     .string()
+//     .required('Bắt buộc phải nhập password!')
+//     .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+//     .max(160, 'Độ dài phải từ 6 - 160 kí tự!'),
+//   confirm_password: yup
+//     .string()
+//     .required('Nhập lại password là bắt buộc!')
+//     .min(6, 'Độ dài phải từ 6 - 160 kí tự!')
+//     .max(160, 'Độ dài phải từ 6 - 160 kí tự!')
+//     .oneOf([yup.ref('new_password')], 'Nhập lại password không khớp')

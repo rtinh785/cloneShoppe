@@ -54,9 +54,11 @@ const Profile = () => {
     resolver: yupResolver(profileSchema)
   })
 
+  // const test = watch()
+  // console.log(test)
   // eslint-disable-next-line react-hooks/incompatible-library
   const avatar = watch('avatar')
-
+  // console.log(avatar)
   const { data: profileData, isFetching } = useQuery({
     queryKey: ['profile'],
     queryFn: userApi.getProfile
@@ -91,7 +93,9 @@ const Profile = () => {
   const uploadAvatarMutation = useMutation({
     mutationFn: userApi.uploadAvatar
   })
+
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
     let avatarName = avatar
     try {
       if (file) {

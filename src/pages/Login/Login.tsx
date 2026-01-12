@@ -75,8 +75,9 @@ const Login = () => {
                 type='password'
                 errorsMessage={errors.password?.message}
                 placeholder='Password'
-                className='mt-2'
+                className='relative mt-2'
                 name='password'
+                classNameEye='absolute top-[12px] right-[5px] size-5 cursor-pointer'
                 register={register}
               />
               <div className='mt-3'>

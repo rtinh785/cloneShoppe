@@ -24,6 +24,7 @@ const InputFile = ({ onChange }: Props) => {
   const handleUpload = () => {
     chooseFileImage.current?.click()
   }
+
   return (
     <>
       <input
