@@ -76,7 +76,7 @@ const NavHeader = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to='/' className='block px-3 py-2 hover:text-cyan-500'>
+                  <Link to={path.historyPurchase} className='block px-3 py-2 hover:text-cyan-500'>
                     Đơn mua
                   </Link>
                 </li>

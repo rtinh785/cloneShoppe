@@ -80,7 +80,7 @@ export const userSchema = yup.object({
   name: yup.string().max(160, 'Độ dài tối đa là 160 kí tự'),
   phone: yup.string().max(20, 'Độ dài tối đa là 20 kí tự'),
   address: yup.string().max(160, 'Độ dài tối đa là 160 kí tự'),
-  avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 kí tự'),
+  avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 kí tự').nullable(),
   date_of_birth: yup.date().max(new Date(), 'Hãy chọn một ngày trong quá khứ'),
   password: yup
     .string()

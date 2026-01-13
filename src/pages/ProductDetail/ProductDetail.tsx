@@ -19,6 +19,7 @@ const ProductDetail = () => {
   const { nameId } = useParams<{ nameId: string }>()
   const id = getIdFromNameId(nameId as string)
   const navigate = useNavigate()
+  console.log(nameId)
 
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],

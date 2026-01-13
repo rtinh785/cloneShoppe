@@ -94,37 +94,41 @@ const Profile = () => {
     mutationFn: userApi.uploadAvatar
   })
 
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(data)
-    let avatarName = avatar
-    try {
-      if (file) {
-        const form = new FormData()
-        form.append('image', file)
-        const uploadRes = await uploadAvatarMutation.mutateAsync(form)
-        avatarName = uploadRes.data.data
-        setValue('avatar', avatarName)
-      }
-      await updateUserMutation.mutateAsync({
-        ...data,
-        date_of_birth: data.date_of_birth?.toISOString(),
-        avatar: avatarName
-      } as BodyUpdateProfile)
-    } catch (error) {
-      if (isAxiosUnprocessableEntityError<ErroResponse<FormDataError>>(error)) {
-        const formError = error.response?.data.data
+  const onSubmit = handleSubmit(
+    async (data) => {
+      console.log(data)
+      let avatarName = avatar
+      try {
+        if (file) {
+          const form = new FormData()
+          form.append('image', file)
+          const uploadRes = await uploadAvatarMutation.mutateAsync(form)
+          avatarName = uploadRes.data.data
+          setValue('avatar', avatarName)
+        }
+        await updateUserMutation.mutateAsync({
+          ...data,
+          date_of_birth: data.date_of_birth?.toISOString(),
+          avatar: avatarName
+        } as BodyUpdateProfile)
+      } catch (error) {
+        console.log(error)
+        if (isAxiosUnprocessableEntityError<ErroResponse<FormDataError>>(error)) {
+          const formError = error.response?.data.data
 
-        if (formError) {
-          Object.keys(formError).forEach((key) => {
-            setError(key as keyof FormDataError, {
-              message: formError[key as keyof FormDataError],
-              type: 'Server'
+          if (formError) {
+            Object.keys(formError).forEach((key) => {
+              setError(key as keyof FormDataError, {
+                message: formError[key as keyof FormDataError],
+                type: 'Server'
+              })
             })
-          })
+          }
         }
       }
-    }
-  })
+    },
+    (e) => console.log('FORM ERROR', e)
+  )
 
   const handleChange = (file?: File) => {
     setFile(file)
