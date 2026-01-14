@@ -1,6 +1,7 @@
 import type { QueryConfig } from '../pages/ProducList/ProducList'
 import useQueryParams from './useQueryParams'
-import { isUndefined, omitBy } from 'lodash'
+import omitBy from 'lodash/omitBy'
+import isUndefined from 'lodash/isUndefined'
 
 const useQueryConfig = () => {
   const queryParams: QueryConfig = useQueryParams()

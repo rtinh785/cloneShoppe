@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import './index.css'
 import App from './App.tsx'
 import { AppProvider } from './context/app.provider.tsx'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBounddary.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,9 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <AppProvider>
-          <App />
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
         </AppProvider>
         <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
       </QueryClientProvider>

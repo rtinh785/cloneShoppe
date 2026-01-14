@@ -71,7 +71,7 @@ const Profile = () => {
       setValue('address', profile.address)
       setValue('phone', profile.phone)
       setValue('date_of_birth', profile.date_of_birth ? new Date(profile.date_of_birth) : new Date(1990, 0, 1))
-      setValue('avatar', profile.avatar)
+      setValue('avatar', profile.avatar ? profile.avatar : undefined)
     }
   }, [profile, setValue])
 
@@ -97,7 +97,7 @@ const Profile = () => {
   const onSubmit = handleSubmit(
     async (data) => {
       console.log(data)
-      let avatarName = avatar
+      let avatarName: string | undefined = avatar ?? undefined
       try {
         if (file) {
           const form = new FormData()
@@ -119,7 +119,7 @@ const Profile = () => {
           if (formError) {
             Object.keys(formError).forEach((key) => {
               setError(key as keyof FormDataError, {
-                message: formError[key as keyof FormDataError],
+                message: formError[key as keyof FormDataError] ?? undefined,
                 type: 'Server'
               })
             })
@@ -223,7 +223,7 @@ const Profile = () => {
           <div className='flex flex-col items-center'>
             <div className='my-5 size-24'>
               <img
-                src={previewImage || getAvatarURL(avatar)}
+                src={previewImage || getAvatarURL(avatar ?? undefined)}
                 alt='haha'
                 className='size-full rounded-full object-cover'
               />

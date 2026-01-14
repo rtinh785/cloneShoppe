@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaPrice, type FormDataPrice } from '../../../../utils/rules'
 import RatingStarts from '../RatingStarts'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import type { QueryConfig } from '../../ProducList'
 
 interface AsideFilterProps {

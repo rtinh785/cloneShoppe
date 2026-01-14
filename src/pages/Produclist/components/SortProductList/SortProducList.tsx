@@ -4,7 +4,7 @@ import type { ProductListConfig } from '../../../../types/product.type'
 import classnames from 'classnames'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import type { QueryConfig } from '../../ProducList'
 
 interface PaginationProps {

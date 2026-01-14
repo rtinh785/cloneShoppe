@@ -1,7 +1,7 @@
 import classnames from 'classnames'
-import type { QueryConfig } from '../../pages/ProducList/ProducList'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from '../../constants/path'
+import type { QueryConfig } from '../../pages/ProducList/ProducList'
 
 interface PaginationProps {
   queryConfig: QueryConfig
@@ -76,7 +76,7 @@ const Pagination = ({ queryConfig, pageSize }: PaginationProps) => {
   return (
     <nav className='mt-6 flex flex-wrap justify-center'>
       {page === 1 ? (
-        <span className='mx-2 cursor-default rounded bg-white/70 px-3 py-2 shadow-sm'>Prev</span>
+        <span className='mx-2 cursor-default rounded bg-white px-3 py-2 opacity-40 shadow-sm'>Prev</span>
       ) : (
         <Link
           to={{
@@ -92,7 +92,7 @@ const Pagination = ({ queryConfig, pageSize }: PaginationProps) => {
       {renderPagination()}
 
       {page === pageSize ? (
-        <span className='mx-2 cursor-default rounded bg-white/70 px-3 py-2 shadow-sm'>Next</span>
+        <span className='mx-2 cursor-default rounded bg-white/70 px-3 py-2 opacity-40 shadow-sm'>Next</span>
       ) : (
         <Link
           to={{

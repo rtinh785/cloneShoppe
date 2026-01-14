@@ -5,7 +5,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { schemaNameSearch, type FormDataNameSearch } from '../utils/rules'
 import useQueryConfig from './useQueryConfig'
 import path from '../constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 const useSearchProducts = () => {
   const nagivate = useNavigate()

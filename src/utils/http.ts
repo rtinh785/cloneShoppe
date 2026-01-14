@@ -1,7 +1,13 @@
 import axios, { AxiosError, HttpStatusCode } from 'axios'
 import { toast } from 'react-toastify'
 import type { AuthResponse } from '../types/auth.type'
-import { clearLocalStorage, getAccesTokenFromLS, saveAccesTokenToLS, setProfileToLS } from './auth'
+import {
+  clearLocalStorage,
+  getAccesTokenFromLS,
+  saveAccesTokenToLS,
+  saveRefreshTokenToLS,
+  setProfileToLS
+} from './auth'
 import path from '../constants/path'
 import config from '../constants/config'
 
@@ -9,7 +15,9 @@ const http = axios.create({
   baseURL: config.baseURL,
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'expire-access-token': 10,
+    'expire-refresh-token': 60 * 60
   }
 })
 
@@ -33,7 +41,9 @@ http.interceptors.response.use(
     if (url === path.login || url == path.register) {
       const data = response.data as AuthResponse
       const access_token: string = data.data.access_token
+      const refresh_token: string = data.data.refresh_token
       saveAccesTokenToLS(access_token)
+      saveRefreshTokenToLS(refresh_token)
       setProfileToLS(data.data.user)
     } else if (url === path.logout) {
       clearLocalStorage()

@@ -95,7 +95,7 @@ const NavHeader = () => {
           }
         >
           <div className='mr-2 h-6 w-6 shrink-0'>
-            <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='w-fill h-full rounded-full object-cover' />
+            <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' />
           </div>
           <span>{profile?.name ? profile?.name : profile?.email}</span>
         </Popover>
