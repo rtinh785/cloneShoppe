@@ -155,10 +155,10 @@ const Cart = () => {
   return purchasesInCartData?.data.data.length === 0 ? (
     <div className='flex flex-col items-center justify-center py-30'>
       <img src={noProducts} alt='noProducts' className='size-60 object-cover' />
-      <div className='text-md mt-3'>Chưa có sản phẩm trong giỏ hàng</div>
+      <p className='text-md mt-3'>Chưa có sản phẩm trong giỏ hàng</p>
     </div>
   ) : (
-    <div className='bg-neutral-100 py-16'>
+    <section className='bg-neutral-100 py-16'>
       <div className='my-container'>
         <div className='overflow-auto'>
           <div className='min-w-[1000px]'>
@@ -173,21 +173,21 @@ const Cart = () => {
                       onChange={handleAllChecked}
                     />
                   </div>
-                  <div className='grow text-black'> Sản phẩm</div>
+                  <p className='grow text-black'> Sản phẩm</p>
                 </div>
               </div>
               <div className='col-span-6'>
                 <div className='grid grid-cols-5 text-center'>
-                  <div className='col-span-2'>Đơn giá</div>
-                  <div className='col-span-1'>Số lượng</div>
-                  <div className='col-span-1'>Số tiền</div>
-                  <div className='col-span-1'>Thao tác</div>
+                  <span className='col-span-2'>Đơn giá</span>
+                  <span className='col-span-1'>Số lượng</span>
+                  <span className='col-span-1'>Số tiền</span>
+                  <span className='col-span-1'>Thao tác</span>
                 </div>
               </div>
             </div>
-            <div className='my-3 rounded-sm bg-white p-5 shadow'>
+            <ul className='my-3 rounded-sm bg-white p-5 shadow'>
               {extendedPurchases?.map((purchase, index) => (
-                <div
+                <li
                   key={purchase._id}
                   className='mt-5 grid grid-cols-12 items-center rounded-sm border border-gray-200 bg-white px-4 py-5 text-center text-sm text-gray-500 first:mt-0'
                 >
@@ -209,14 +209,14 @@ const Cart = () => {
                           >
                             <img src={purchase.product.image} alt={purchase.product.name} />
                           </Link>
-                          <div className='grow px-2 pt-1 pb-2'>
+                          <p className='grow px-2 pt-1 pb-2'>
                             <Link
                               to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}
                               className='line-clamp-2 text-left'
                             >
                               {purchase.product.name}
                             </Link>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -267,9 +267,9 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
         <div className='sticky bottom-0 z-10 mt-8 flex flex-col rounded-sm border border-gray-100 bg-white p-5 shadow sm:flex-row sm:items-center'>
@@ -309,7 +309,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

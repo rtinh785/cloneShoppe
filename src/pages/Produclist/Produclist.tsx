@@ -33,13 +33,15 @@ const ProducList = () => {
   })
 
   return (
-    <div className='bg-gray-200 py-6'>
+    <section className='bg-gray-200 py-6'>
+      <title>ShoppeFake | Trang chủ</title>
+      <meta name='description' content='Trang chủ nha' />
       <div className='my-container'>
         {productsData && (
           <div className='grid grid-cols-12 gap-6'>
-            <div className='col-span-3'>
+            <section className='col-span-3'>
               <AsideFilter queryConfig={queryConfig} categories={categoriesData?.data.data || []}></AsideFilter>
-            </div>
+            </section>
             <section className='col-span-9'>
               <SortProducList
                 queryConfig={queryConfig}
@@ -57,7 +59,7 @@ const ProducList = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 

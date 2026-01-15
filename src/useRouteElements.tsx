@@ -9,6 +9,7 @@ import path from './constants/path'
 import CartLayout from './layouts/CartLayout'
 import UserLayout from './pages/User/layouts/UserLayout/index'
 import Header from './components/Header'
+import ScrollToTop from './components/ScrollToTop'
 
 const Login = lazy(() => import('./pages/Login'))
 const ProducList = lazy(() => import('./pages/ProducList'))
@@ -51,6 +52,7 @@ const useRouteElements = () => {
       element: (
         <MainLayout>
           <Suspense>
+            <ScrollToTop />
             <ProductDetail />
           </Suspense>
         </MainLayout>

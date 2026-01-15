@@ -67,6 +67,7 @@ const Pagination = ({ queryConfig, pageSize }: PaginationProps) => {
               'border-transparent': pageNumber !== page
             })}
             key={index}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             {pageNumber}
           </Link>

@@ -6,7 +6,7 @@ import useSearchProducts from '../../hooks/useSearchProducts'
 const CartHeader = () => {
   const { register, onSubmitSearch } = useSearchProducts()
   return (
-    <div className='border-b border-b-black/10'>
+    <header className='border-b border-b-black/10'>
       <div className='bg-orange-600 text-white'>
         <div className='my-container'>
           <NavHeader></NavHeader>
@@ -56,7 +56,7 @@ const CartHeader = () => {
           </nav>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 

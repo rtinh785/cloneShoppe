@@ -127,7 +127,9 @@ const ProductDetail = () => {
 
   return (
     <section className='bg-gray-200 py-6'>
-      <div className='my-container'>
+      <title>ShoppeFake | Sản phẩm</title>
+      <meta name='description' content='Trang sản phẩm nha' />
+      <article className='my-container'>
         <div className='bg-white p-4 shadow'>
           <div className='grid grid-cols-12 gap-9'>
             <div className='col-span-5'>
@@ -248,7 +250,7 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-      </div>
+      </article>
       <section className='my-container'>
         <div className='mt-8 bg-white p-4 shadow'>
           <div className='rounded bg-gray-50 p-4 text-lg text-slate-700 capitalize'>Mô tả sản phẩm</div>
@@ -262,14 +264,16 @@ const ProductDetail = () => {
         </div>
         <div className='mt-8'>
           <div className='my-container'>
-            <div className='text-gray-400 uppercase'> CÓ THỂ BẠN CŨNG THÍCH</div>
+            <div className='text-gray-400 uppercase'> SẢN PHẨM TƯƠNG TỰ</div>
             <section className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
               {productsData &&
-                productsData.data.data.products.map((product) => (
-                  <div className='col-span-1' key={product._id}>
-                    <Product product={product}></Product>
-                  </div>
-                ))}
+                productsData.data.data.products
+                  .filter((product) => product._id !== productDetailData.data.data._id)
+                  .map((product) => (
+                    <div className='col-span-1' key={product._id}>
+                      <Product product={product}></Product>
+                    </div>
+                  ))}
             </section>
           </div>
         </div>

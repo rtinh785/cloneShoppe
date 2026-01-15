@@ -15,9 +15,7 @@ const UserSideNav = () => {
           <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='size-full object-cover' />
         </Link>
         <div className='grow pl-4'>
-          <div className='mb-1 truncate font-semibold text-gray-600'>
-            {profile?.name ? profile?.name : profile?.email}
-          </div>
+          <p className='mb-1 truncate font-semibold text-gray-600'>{profile?.name ? profile?.name : profile?.email}</p>
           <Link to={path.profile} className='flex items-center text-gray-500 capitalize'>
             <svg
               width={12}

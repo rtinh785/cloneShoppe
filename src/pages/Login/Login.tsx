@@ -56,7 +56,9 @@ const Login = () => {
   })
 
   return (
-    <div className='bg-primary'>
+    <section className='bg-primary'>
+      <title>ShoppeFake | Đăng nhập</title>
+      <meta name='description' content='Trang đăng nhập nha' />
       <div className='my-container'>
         <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
@@ -98,7 +100,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

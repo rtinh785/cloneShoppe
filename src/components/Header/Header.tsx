@@ -27,7 +27,7 @@ const Header = () => {
   const purchasesInCart = purchasesInCartData?.data.data || []
 
   return (
-    <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pt-2 pb-5 text-white'>
+    <header className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pt-2 pb-5 text-white'>
       <div className='my-container'>
         <NavHeader></NavHeader>
         <div className='mt-4 grid grid-cols-12 items-end gap-4'>
@@ -72,7 +72,7 @@ const Header = () => {
                 purchasesInCart?.length > 0 ? (
                   <div className='max-w-[400px] text-sm'>
                     <div className='p-2'>
-                      <div className='captitalize text-gray-400'>Sản phẩm mới thêm</div>
+                      <p className='captitalize text-gray-400'>Sản phẩm mới thêm</p>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PRODUCT).map((purchase) => (
                           <div className='mt-2 flex py-2 hover:bg-gray-100' key={purchase._id}>
@@ -84,19 +84,19 @@ const Header = () => {
                               />
                             </div>
                             <div className='ml-2 grow overflow-hidden'>
-                              <div className='truncate'>{purchase.product.name}</div>
+                              <p className='truncate'>{purchase.product.name}</p>
                             </div>
                             <div className='ml-2 shrink-0'>
-                              <div className='text-orange-500'>đ{formatCurrency(purchase.product.price)}</div>
+                              <span className='text-orange-500'>đ{formatCurrency(purchase.product.price)}</span>
                             </div>
                           </div>
                         ))}
                       </div>
                       <div className='mt-8 flex items-center justify-between'>
-                        <div className='text-xs text-gray-500 capitalize'>
+                        <p className='text-xs text-gray-500 capitalize'>
                           {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''} thêm vào
                           giỏ hàng
-                        </div>
+                        </p>
                         <Link
                           to={path.cart}
                           className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'
@@ -109,7 +109,7 @@ const Header = () => {
                 ) : (
                   <div className='flex size-[400px] flex-col items-center justify-center'>
                     <img src={noProducts} alt='noProducts' className='size-30 object-cover' />
-                    <div className='mt-3 text-sm'>Chưa có sản phẩm trong giỏ hàng</div>
+                    <p className='mt-3 text-sm'>Chưa có sản phẩm trong giỏ hàng</p>
                   </div>
                 )
               }
@@ -140,7 +140,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 

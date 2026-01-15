@@ -9,10 +9,11 @@ import {
   saveRefreshTokenToLS,
   setProfileToLS
 } from './auth'
-import path from '../constants/path'
+
 import config from '../constants/config'
-import { URL_LOGIN, URL_REFRESH_TOKEN, URL_REGISTER } from '../apis/auth.api'
+import { URL_LOGIN, URL_REFRESH_TOKEN, URL_REGISTER, URL_LOGOUT } from '../apis/auth.api'
 import { isAxiosExpiredTokenRerror, isAxiosUnauthorizedError } from './utils'
+import type { ErroResponse } from '../types/utils.type'
 
 let refreshTokenRequest: Promise<string> | null = null
 
@@ -21,7 +22,7 @@ const http = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'expire-access-token': 10,
+    'expire-access-token': 60 * 40,
     'expire-refresh-token': 60 * 60
   }
 })
@@ -50,7 +51,7 @@ http.interceptors.response.use(
       saveAccesTokenToLS(access_token)
       saveRefreshTokenToLS(refresh_token)
       setProfileToLS(data.data.user)
-    } else if (url === path.logout) {
+    } else if (url === URL_LOGOUT) {
       clearLocalStorage()
     }
     return response
@@ -58,6 +59,7 @@ http.interceptors.response.use(
 
   function onRejected(error: AxiosError<string>) {
     // not 402 and 401
+    console.log(error)
     if (![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)) {
       const message = error.message
       toast.error(message)
@@ -67,18 +69,23 @@ http.interceptors.response.use(
     const { url } = config
 
     // 401
-    if (isAxiosUnauthorizedError(error)) {
+    if (isAxiosUnauthorizedError<ErroResponse<{ name: string; messasge: string }>>(error)) {
       if (isAxiosExpiredTokenRerror(error) && url !== URL_REFRESH_TOKEN) {
         refreshTokenRequest =
           refreshTokenRequest !== null
             ? refreshTokenRequest
-            : handleReFreshToken().finally((refreshTokenRequest = null))
+            : handleReFreshToken().finally(() => {
+                setTimeout(() => {
+                  refreshTokenRequest = null
+                }, 1000)
+              })
 
         return refreshTokenRequest.then((access_token) => {
           return http({ ...config, headers: { ...config.headers, Authorization: access_token } })
         })
       }
       clearLocalStorage()
+      toast.error(error.response?.data.data?.messasge || error.response?.data.message)
     }
 
     return Promise.reject(error)

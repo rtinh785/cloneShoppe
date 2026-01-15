@@ -100,7 +100,7 @@ const NavHeader = () => {
           <span>{profile?.name ? profile?.name : profile?.email}</span>
         </Popover>
       ) : (
-        <div className='flex items-center'>
+        <nav className='flex items-center'>
           <Link to={path.login} className='mx-3 capitalize hover:text-white/70'>
             Đăng nhập
           </Link>
@@ -108,7 +108,7 @@ const NavHeader = () => {
           <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
             Đăng ký
           </Link>
-        </div>
+        </nav>
       )}
     </div>
   )
