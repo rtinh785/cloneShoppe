@@ -1,15 +1,20 @@
-import axios, { AxiosError, HttpStatusCode } from 'axios'
+import axios, { AxiosError, HttpStatusCode, type InternalAxiosRequestConfig } from 'axios'
 import { toast } from 'react-toastify'
-import type { AuthResponse } from '../types/auth.type'
+import type { AuthResponse, RefreshTokenRespone } from '../types/auth.type'
 import {
   clearLocalStorage,
   getAccesTokenFromLS,
+  getRefreshTokenFromLS,
   saveAccesTokenToLS,
   saveRefreshTokenToLS,
   setProfileToLS
 } from './auth'
 import path from '../constants/path'
 import config from '../constants/config'
+import { URL_LOGIN, URL_REFRESH_TOKEN, URL_REGISTER } from '../apis/auth.api'
+import { isAxiosExpiredTokenRerror, isAxiosUnauthorizedError } from './utils'
+
+let refreshTokenRequest: Promise<string> | null = null
 
 const http = axios.create({
   baseURL: config.baseURL,
@@ -38,7 +43,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   function onFulfilled(response) {
     const { url } = response.config
-    if (url === path.login || url == path.register) {
+    if (url === URL_LOGIN || url == URL_REGISTER) {
       const data = response.data as AuthResponse
       const access_token: string = data.data.access_token
       const refresh_token: string = data.data.refresh_token
@@ -50,17 +55,51 @@ http.interceptors.response.use(
     }
     return response
   },
+
   function onRejected(error: AxiosError<string>) {
-    if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
+    // not 402 and 401
+    if (![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)) {
       const message = error.message
       toast.error(message)
     }
-    if (error.response?.status === HttpStatusCode.Unauthorized) {
+
+    const config = error.response?.config || ({ headers: {} } as InternalAxiosRequestConfig)
+    const { url } = config
+
+    // 401
+    if (isAxiosUnauthorizedError(error)) {
+      if (isAxiosExpiredTokenRerror(error) && url !== URL_REFRESH_TOKEN) {
+        refreshTokenRequest =
+          refreshTokenRequest !== null
+            ? refreshTokenRequest
+            : handleReFreshToken().finally((refreshTokenRequest = null))
+
+        return refreshTokenRequest.then((access_token) => {
+          return http({ ...config, headers: { ...config.headers, Authorization: access_token } })
+        })
+      }
       clearLocalStorage()
     }
 
     return Promise.reject(error)
   }
 )
+
+const handleReFreshToken = () => {
+  const refresh_token = getRefreshTokenFromLS()
+  return http
+    .post<RefreshTokenRespone>(URL_REFRESH_TOKEN, {
+      refresh_token: refresh_token
+    })
+    .then((res) => {
+      const { access_token } = res.data.data
+      saveAccesTokenToLS(access_token)
+      return access_token
+    })
+    .catch((error) => {
+      clearLocalStorage()
+      throw error
+    })
+}
 
 export default http
