@@ -154,7 +154,7 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
                   pathname: path.home,
                   search: createSearchParams({ ...queryConfig, page: (page + 1).toString() }).toString()
                 }}
-                className='flex h-8 w-9 items-center justify-center rounded-tl-sm rounded-bl-sm bg-white px-3 shadow hover:bg-slate-100'
+                className='flex h-8 w-9 items-center justify-center rounded-tr-sm rounded-br-sm bg-white px-3 shadow hover:bg-slate-100'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

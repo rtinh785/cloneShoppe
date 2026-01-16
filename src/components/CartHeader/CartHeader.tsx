@@ -35,7 +35,7 @@ const CartHeader = () => {
                   {...register('name')}
                 />
 
-                <button className='shrink-0 rounded-sm bg-orange-600 px-8 py-2 hover:opacity-90'>
+                <button className='shrink-0 rounded-l-sm bg-orange-600 px-8 py-2 hover:opacity-90'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'

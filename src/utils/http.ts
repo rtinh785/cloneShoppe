@@ -22,7 +22,7 @@ const http = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'expire-access-token': 60 * 40,
+    'expire-access-token': 10,
     'expire-refresh-token': 60 * 60
   }
 })
