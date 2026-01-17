@@ -6,6 +6,7 @@ import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import omit from 'lodash/omit'
 import type { QueryConfig } from '../../ProducList'
+import { Trans } from '@lingui/react/macro'
 
 interface PaginationProps {
   queryConfig: QueryConfig
@@ -48,7 +49,9 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
     <div className='bg-gray-300/40 px-3 py-4'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
         <nav className='item-center flex flex-wrap gap-2'>
-          <span className='my-auto'>Sắp xếp theo</span>
+          <span className='my-auto'>
+            <Trans>Sắp xếp theo</Trans>
+          </span>
           <button
             className={classnames('h-8 px-4 text-center text-sm', {
               'bg-orange-600 text-white hover:bg-orange-600/80': isActiveSortBy(sortBy.view),
@@ -56,7 +59,7 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
             })}
             onClick={() => handleSort(sortBy.view)}
           >
-            Phổ biến
+            <Trans>Phổ biến</Trans>
           </button>
           <button
             className={classnames('h-8 px-4 text-center text-sm', {
@@ -65,7 +68,7 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
             })}
             onClick={() => handleSort(sortBy.createdAt)}
           >
-            Mới nhất
+            <Trans>Mới nhất</Trans>
           </button>
           <button
             className={classnames('h-8 px-4 text-center text-sm', {
@@ -74,7 +77,7 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
             })}
             onClick={() => handleSort(sortBy.sold)}
           >
-            Bán chạy
+            <Trans>Bán chạy</Trans>
           </button>
           <select
             className={classnames('h-8 px-4 text-left text-sm capitalize outline-none', {
@@ -85,13 +88,13 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
             onChange={(e) => handleOrder(e.target.value as Exclude<ProductListConfig['order'], undefined>)}
           >
             <option value='' disabled className='bg-white text-black hover:bg-slate-100'>
-              Giá
+              <Trans>Giá</Trans>
             </option>
             <option value={orderConstants.asc} className='bg-white text-black hover:bg-slate-100'>
-              Giá: Thấp đến cao
+              <Trans>Giá: Thấp đến cao</Trans>
             </option>
             <option value={orderConstants.desc} className='bg-white text-black hover:bg-slate-100'>
-              Giá: Cao đến thấp
+              <Trans>Giá: Cao đến thấp</Trans>
             </option>
           </select>
         </nav>

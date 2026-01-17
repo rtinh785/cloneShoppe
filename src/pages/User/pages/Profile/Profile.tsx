@@ -15,7 +15,8 @@ import { setProfileToLS } from '../../../../utils/auth'
 import { getAvatarURL, isAxiosUnprocessableEntityError } from '../../../../utils/utils'
 import type { ErroResponse } from '../../../../types/utils.type'
 import InputFile from '../../../../components/InputFile/InputFile'
-
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
   date_of_birth?: string
@@ -137,8 +138,12 @@ const Profile = () => {
   return (
     <section className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
       <div className='border-b border-b-gray-200 py-6'>
-        <h1 className='text-lg font-medium text-gray-900 capitalize'>Hồ sơ của tôi</h1>
-        <p className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+        <h1 className='text-lg font-medium text-gray-900 capitalize'>
+          <Trans>Hồ sơ của tôi</Trans>
+        </h1>
+        <p className='mt-1 text-sm text-gray-700'>
+          <Trans>Quản lý thông tin hồ sơ để bảo mật tài khoản</Trans>
+        </p>
       </div>
       <form className='mt-8 flex flex-col-reverse md:flex-row md:items-start' onSubmit={onSubmit} noValidate>
         <div className='mt-6 grow md:mt-0 md:pr-12'>
@@ -149,19 +154,23 @@ const Profile = () => {
             </div>
           </div>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>Tên:</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>
+              <Trans>Tên:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[80%]'>
               <Input
                 classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
                 register={register}
                 name='name'
-                placeholder='Tên'
+                placeholder={t`Tên`}
                 errorsMessage={errors.name?.message}
               ></Input>
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>Số điện thoại:</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>
+              <Trans>Số điện thoại:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[80%]'>
               <Controller
                 control={control}
@@ -169,7 +178,7 @@ const Profile = () => {
                 render={({ field }) => (
                   <InputNumber
                     classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
-                    placeholder='Số điện thoại'
+                    placeholder={t`Số điện thoại`}
                     {...field}
                     onChange={(e) => {
                       field.onChange(e)
@@ -181,12 +190,14 @@ const Profile = () => {
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>Địa chỉ:</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>
+              <Trans>Địa chỉ:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[80%]'>
               <Input
                 classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
                 name='address'
-                placeholder='Địa chỉ'
+                placeholder={t`Địa chỉ`}
                 register={register}
                 errorsMessage={errors.address?.message}
               ></Input>
@@ -214,7 +225,7 @@ const Profile = () => {
                 type='submit'
                 disabled={isFetching}
               >
-                Lưu
+                <Trans>Lưu:</Trans>
               </Button>
             </div>
           </div>
@@ -224,14 +235,19 @@ const Profile = () => {
             <div className='my-5 size-24'>
               <img
                 src={previewImage || getAvatarURL(avatar ?? undefined)}
-                alt='haha'
+                alt='Avatar'
                 className='size-full rounded-full object-cover'
               />
             </div>
             <InputFile onChange={handleChange}></InputFile>
             <div className='mt-3 text-gray-400'>
-              <div>Dung lượng file tối đa 1MB</div>
-              <div>Định dạng: JPEG, PNG</div>
+              <span>
+                <Trans>Dung lượng file tối đa 1MB:</Trans>
+              </span>
+              <br />
+              <span>
+                <Trans>Định dạng: JPEG, PNG</Trans>
+              </span>
             </div>
           </div>
         </div>

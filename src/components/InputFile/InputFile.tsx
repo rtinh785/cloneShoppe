@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { toast } from 'react-toastify'
-
+import { Trans } from '@lingui/react/macro'
 interface Props {
   onChange?: (file?: File) => void
 }
@@ -41,7 +41,7 @@ const InputFile = ({ onChange }: Props) => {
         type='button'
         onClick={handleUpload}
       >
-        Chọn ảnh
+        <Trans>Chọn ảnh</Trans>
       </button>
     </>
   )

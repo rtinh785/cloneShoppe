@@ -1,0 +1,226 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-01-17 09:46+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: vi\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:236
+msgid " sản phẩm có sẵn"
+msgstr " sản phẩm có sẵn"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:249
+msgid " Thêm vào giỏ hàng"
+msgstr " Thêm vào giỏ hàng"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:179
+msgid "₫ ĐẾN"
+msgstr "₫ ĐẾN"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:158
+msgid "₫ TỪ"
+msgstr "₫ TỪ"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:192
+msgid "Áp dụng"
+msgstr "Áp dụng"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:80
+msgid "Bán chạy"
+msgstr "Bán chạy"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:139
+msgid "Bộ lọc tìm kiếm"
+msgstr "Bộ lọc tìm kiếm"
+
+#: src/components/InputFile/InputFile.tsx:44
+msgid "Chọn ảnh"
+msgstr "Chọn ảnh"
+
+#: src/components/Header/Header.tsx:117
+msgid "Chưa có sản phẩm trong giỏ hàng"
+msgstr "Chưa có sản phẩm trong giỏ hàng"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:211
+msgid "Đã bán"
+msgstr "Đã bán"
+
+#: src/components/NavHeader/NavHeader.tsx:121
+msgid "Đăng ký"
+msgstr "Đăng ký"
+
+#: src/components/NavHeader/NavHeader.tsx:117
+msgid "Đăng nhập"
+msgstr "Đăng nhập"
+
+#: src/components/NavHeader/NavHeader.tsx:102
+msgid "Đăng xuất"
+msgstr "Đăng xuất"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:198
+msgid "Đánh giá"
+msgstr "Đánh giá"
+
+#: src/pages/User/pages/Profile/Profile.tsx:200
+msgid "Địa chỉ"
+msgstr "Địa chỉ"
+
+#: src/pages/User/pages/Profile/Profile.tsx:194
+msgid "Địa chỉ:"
+msgstr "Địa chỉ:"
+
+#: src/pages/User/pages/Profile/Profile.tsx:249
+msgid "Định dạng: JPEG, PNG"
+msgstr "Định dạng: JPEG, PNG"
+
+#: src/components/NavHeader/NavHeader.tsx:92
+#: src/pages/User/components/UserSideNav/UserSideNav.tsx:79
+msgid "Đơn mua"
+msgstr "Đơn mua"
+
+#: src/pages/User/pages/Profile/Profile.tsx:245
+msgid "Dung lượng file tối đa 1MB:"
+msgstr "Dung lượng file tối đa 1MB:"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:91
+msgid "Giá"
+msgstr "Giá"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:97
+msgid "Giá: Cao đến thấp"
+msgstr "Giá: Cao đến thấp"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:94
+msgid "Giá: Thấp đến cao"
+msgstr "Giá: Thấp đến cao"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:220
+msgid "giảm"
+msgstr "giảm"
+
+#: src/pages/User/pages/Profile/Profile.tsx:142
+msgid "Hồ sơ của tôi"
+msgstr "Hồ sơ của tôi"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:145
+msgid "Khoản giá"
+msgstr "Khoản giá"
+
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:137
+msgid "Lưu"
+msgstr "Lưu"
+
+#: src/pages/User/pages/Profile/Profile.tsx:228
+msgid "Lưu:"
+msgstr "Lưu:"
+
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:80
+msgid "Mật khẩu hiện tại:"
+msgstr "Mật khẩu hiện tại:"
+
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:97
+msgid "Mật khẩu mới:"
+msgstr "Mật khẩu mới:"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:265
+msgid "Mô tả sản phẩm"
+msgstr "Mô tả sản phẩm"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:71
+msgid "Mới nhất"
+msgstr "Mới nhất"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:255
+msgid "mua ngay"
+msgstr "mua ngay"
+
+#: src/pages/User/components/DataSelect/DateSelect.tsx:35
+msgid "Ngày sinh:"
+msgstr "Ngày sinh:"
+
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:114
+msgid "Nhập lại mật khẩu mới:"
+msgstr "Nhập lại mật khẩu mới:"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:62
+msgid "Phổ biến"
+msgstr "Phổ biến"
+
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:73
+#: src/pages/User/pages/Profile/Profile.tsx:145
+msgid "Quản lý thông tin hồ sơ để bảo mật tài khoản"
+msgstr "Quản lý thông tin hồ sơ để bảo mật tài khoản"
+
+#: src/components/Header/Header.tsx:78
+msgid "Sản phẩm mới thêm"
+msgstr "Sản phẩm mới thêm"
+
+#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:53
+msgid "Sắp xếp theo"
+msgstr "Sắp xếp theo"
+
+#: src/pages/User/pages/Profile/Profile.tsx:181
+msgid "Số điện thoại"
+msgstr "Số điện thoại"
+
+#: src/pages/User/pages/Profile/Profile.tsx:172
+msgid "Số điện thoại:"
+msgstr "Số điện thoại:"
+
+#: src/pages/ProductDetail/ProductDetail.tsx:225
+msgid "Số lượng"
+msgstr "Số lượng"
+
+#: src/pages/User/components/UserSideNav/UserSideNav.tsx:34
+msgid "Sửa hồ sơ"
+msgstr "Sửa hồ sơ"
+
+#: src/components/NavHeader/NavHeader.tsx:87
+#: src/pages/User/components/UserSideNav/UserSideNav.tsx:51
+msgid "Tài khoản của tôi"
+msgstr "Tài khoản của tôi"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:87
+msgid "Tất cả danh mục"
+msgstr "Tất cả danh mục"
+
+#: src/pages/User/pages/Profile/Profile.tsx:165
+msgid "Tên"
+msgstr "Tên"
+
+#: src/pages/User/pages/Profile/Profile.tsx:158
+msgid "Tên:"
+msgstr "Tên:"
+
+#: src/pages/User/components/UserSideNav/UserSideNav.tsx:65
+#: src/pages/User/pages/ChangePassword/ChangePassword.tsx:70
+msgid "Thay đổi mật khẩu"
+msgstr "Thay đổi mật khẩu"
+
+#: src/components/Header/Header.tsx:102
+msgid "thêm vào giỏ hàng"
+msgstr "thêm vào giỏ hàng"
+
+#: src/pages/User/pages/HistoryPurchase/HistoryPurchase.tsx:77
+msgid "Tổng giá tiền"
+msgstr "Tổng giá tiền"
+
+#: src/pages/ProducList/components/RatingStarts/RatingStarts.tsx:81
+msgid "trở lên"
+msgstr "trở lên"
+
+#: src/components/Header/Header.tsx:108
+msgid "Xem giỏ hàng"
+msgstr "Xem giỏ hàng"
+
+#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:206
+msgid "Xoá tất cả"
+msgstr "Xoá tất cả"

@@ -13,6 +13,8 @@ import { formatCurrency } from '../../utils/utils'
 import NavHeader from '../NavHeader/NavHeader'
 import useSearchProducts from '../../hooks/useSearchProducts'
 
+import { Trans } from '@lingui/react/macro'
+
 const MAX_PRODUCT = 5
 
 const Header = () => {
@@ -72,7 +74,9 @@ const Header = () => {
                 purchasesInCart?.length > 0 ? (
                   <div className='max-w-[400px] text-sm'>
                     <div className='p-2'>
-                      <p className='captitalize text-gray-400'>Sản phẩm mới thêm</p>
+                      <p className='captitalize text-gray-400'>
+                        <Trans>Sản phẩm mới thêm</Trans>
+                      </p>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PRODUCT).map((purchase) => (
                           <div className='mt-2 flex py-2 hover:bg-gray-100' key={purchase._id}>
@@ -94,14 +98,14 @@ const Header = () => {
                       </div>
                       <div className='mt-8 flex items-center justify-between'>
                         <p className='text-xs text-gray-500 capitalize'>
-                          {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''} thêm vào
-                          giỏ hàng
+                          {purchasesInCart.length > MAX_PRODUCT ? purchasesInCart.length - MAX_PRODUCT : ''}{' '}
+                          <Trans>thêm vào giỏ hàng</Trans>
                         </p>
                         <Link
                           to={path.cart}
                           className='rounded-sm bg-orange-600 px-4 py-2 text-white capitalize hover:opacity-80'
                         >
-                          Xem giỏ hàng
+                          <Trans>Xem giỏ hàng</Trans>
                         </Link>
                       </div>
                     </div>
@@ -109,7 +113,9 @@ const Header = () => {
                 ) : (
                   <div className='flex size-[400px] flex-col items-center justify-center'>
                     <img src={noProducts} alt='noProducts' className='size-30 object-cover' />
-                    <p className='mt-3 text-sm'>Chưa có sản phẩm trong giỏ hàng</p>
+                    <p className='mt-3 text-sm'>
+                      <Trans>Chưa có sản phẩm trong giỏ hàng</Trans>
+                    </p>
                   </div>
                 )
               }

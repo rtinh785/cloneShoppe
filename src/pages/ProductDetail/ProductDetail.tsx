@@ -12,7 +12,7 @@ import purchaseApi from '../../apis/purchases'
 import { purchaseStatuses } from '../../constants/purchase'
 import { toast } from 'react-toastify'
 import path from '../../constants/path'
-
+import { Trans } from '@lingui/react/macro'
 const ProductDetail = () => {
   const queryClient = useQueryClient()
   const [buyCount, setBuyCount] = useState(1)
@@ -207,18 +207,23 @@ const ProductDetail = () => {
                 <div className='mx-4 h-4 w-px bg-gray-300'></div>
                 <div>
                   <span>{formatNumberToSocialStyle(product.sold)}</span>
-                  <span className='ml-1 text-gray-500'>Đã bán</span>
+                  <span className='ml-1 text-gray-500'>
+                    <Trans>Đã bán</Trans>
+                  </span>
                 </div>
               </div>
               <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
                 <div className='text-gray-500 line-through'>đ{formatCurrency(product.price_before_discount)}</div>
                 <div className='ml-3 text-3xl font-medium text-orange-600'>{formatCurrency(product.price)}</div>
                 <div className='ml-4 rounded-sm bg-orange-600 px-1 py-0.5 text-xs font-semibold text-white uppercase'>
-                  {rateSale(product.price_before_discount, product.price)} giảm
+                  {rateSale(product.price_before_discount, product.price)}
+                  <Trans>giảm</Trans>
                 </div>
               </div>
               <div className='mt-8 flex items-center'>
-                <p className='text-gray-500 capitalize'>Số lượng</p>
+                <p className='text-gray-500 capitalize'>
+                  <Trans>Số lượng</Trans>
+                </p>
                 <QuantityController
                   OnDecrease={handleBuyCount}
                   OnIncrease={handleBuyCount}
@@ -226,7 +231,10 @@ const ProductDetail = () => {
                   value={buyCount}
                   max={product.quantity}
                 ></QuantityController>
-                <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
+                <div className='ml-6 text-sm text-gray-500'>
+                  {product.quantity}
+                  <Trans> sản phẩm có sẵn</Trans>
+                </div>
               </div>
               <div className='mt-8 flex items-center'>
                 <button
@@ -238,13 +246,13 @@ const ProductDetail = () => {
                     src='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/productdetailspage/f600cbfffbe02cc144a1.svg'
                     alt='shop'
                   />
-                  Thêm vào giỏ hàng
+                  <Trans> Thêm vào giỏ hàng</Trans>
                 </button>
                 <button
                   className='ml-4 flex h-12 min-w-20 items-center justify-center rounded-sm bg-orange-600 px-5 text-white capitalize shadow-sm outline-none hover:bg-orange-600/90'
                   onClick={buyNow}
                 >
-                  mua ngay
+                  <Trans>mua ngay</Trans>
                 </button>
               </div>
             </div>
@@ -253,7 +261,9 @@ const ProductDetail = () => {
       </article>
       <section className='my-container'>
         <div className='mt-8 bg-white p-4 shadow'>
-          <div className='rounded bg-gray-50 p-4 text-lg text-slate-700 capitalize'>Mô tả sản phẩm</div>
+          <div className='rounded bg-gray-50 p-4 text-lg text-slate-700 capitalize'>
+            <Trans>Mô tả sản phẩm</Trans>
+          </div>
           <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
             <div
               dangerouslySetInnerHTML={{

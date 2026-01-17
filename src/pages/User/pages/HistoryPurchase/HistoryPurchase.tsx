@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import purchaseApi from '../../../../apis/purchases'
 import type { PurchaseListStatus } from '../../../../types/purchases.type'
 import { formatCurrency, generateNameId } from '../../../../utils/utils'
-
+import { Trans } from '@lingui/react/macro'
 const purchaseTabs = [
   { status: purchaseStatuses.all, name: 'Tất cả' },
   { status: purchaseStatuses.waitForConfirmation, name: 'Chờ xác nhận' },
@@ -73,7 +73,9 @@ const HistoryPurchase = () => {
                 </Link>
                 <div className='flex justify-end'>
                   <div>
-                    <span>Tổng giá tiền</span>
+                    <span>
+                      <Trans>Tổng giá tiền</Trans>
+                    </span>
                     <span className='ml-4 text-xl text-orange-600'>
                       {formatCurrency(purchase.product.price * purchase.buy_count)}
                     </span>

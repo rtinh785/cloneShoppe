@@ -11,6 +11,9 @@ import { isAxiosUnprocessableEntityError } from '../../../../utils/utils'
 import type { ErroResponse } from '../../../../types/utils.type'
 import Button from '../../../../components/Button'
 
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
+
 type FormData = Pick<UserSchema, 'password' | 'new_password' | 'confirm_password'>
 const passwordSchema = userSchema.pick(['password', 'new_password', 'confirm_password']) as yup.ObjectSchema<FormData>
 
@@ -63,13 +66,19 @@ const ChangePassword = () => {
   return (
     <section className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
       <div className='border-b border-b-gray-200 py-6'>
-        <h1 className='text-lg font-medium text-gray-900 capitalize'>Thay đổi mật khẩu</h1>
-        <p className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+        <h1 className='text-lg font-medium text-gray-900 capitalize'>
+          <Trans>Thay đổi mật khẩu</Trans>
+        </h1>
+        <p className='mt-1 text-sm text-gray-700'>
+          <Trans>Quản lý thông tin hồ sơ để bảo mật tài khoản</Trans>
+        </p>
       </div>
       <form className='mt-8 mr-auto max-w-2xl' onSubmit={onSubmit} noValidate>
         <div className='mt-6 grow md:mt-0 md:pr-12'>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>Mật khẩu hiện tại:</div>
+            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>
+              <Trans>Mật khẩu hiện tại:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[70%]'>
               <Input
                 classNameInput=' w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
@@ -84,7 +93,9 @@ const ChangePassword = () => {
             </div>
           </div>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>Mật khẩu mới:</div>
+            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>
+              <Trans>Mật khẩu mới:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[70%]'>
               <Input
                 classNameInput=' w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
@@ -99,7 +110,9 @@ const ChangePassword = () => {
             </div>
           </div>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>Nhập lại mật khẩu mới:</div>
+            <div className='truncate pt-3 capitalize sm:w-[30%] sm:pr-2 sm:text-right'>
+              <Trans>Nhập lại mật khẩu mới:</Trans>
+            </div>
             <div className='ms:pl-5 sm:w-[70%]'>
               <Input
                 classNameInput=' w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
@@ -121,7 +134,7 @@ const ChangePassword = () => {
                 className='flex h-9 items-center bg-orange-600 px-5 text-center text-sm text-white hover:bg-orange-600/80'
                 type='submit'
               >
-                Lưu
+                <Trans>Lưu</Trans>
               </Button>
             </div>
           </div>

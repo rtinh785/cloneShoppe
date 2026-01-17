@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { AppContext } from '../../../../context/app.context'
 import { getAvatarURL } from '../../../../utils/utils'
 import classnames from 'classnames'
+import { Trans } from '@lingui/react/macro'
 const UserSideNav = () => {
   const { profile } = useContext(AppContext)
   const location = useLocation()
@@ -30,7 +31,7 @@ const UserSideNav = () => {
                 fillRule='evenodd'
               />
             </svg>
-            Sửa hồ sơ
+            <Trans>Sửa hồ sơ</Trans>
           </Link>
         </div>
       </div>
@@ -47,7 +48,7 @@ const UserSideNav = () => {
               className='size-full'
             />
           </div>
-          Tài khoản của tôi
+          <Trans>Tài khoản của tôi</Trans>
         </Link>
         <Link
           to={path.changePassword}
@@ -61,7 +62,7 @@ const UserSideNav = () => {
               className='size-full'
             />
           </div>
-          Thay đổi mật khẩu
+          <Trans>Thay đổi mật khẩu</Trans>
         </Link>
         <Link
           to={path.historyPurchase}
@@ -75,7 +76,7 @@ const UserSideNav = () => {
               className='size-full'
             />
           </div>
-          Đơn mua
+          <Trans>Đơn mua</Trans>
         </Link>
       </div>
     </section>

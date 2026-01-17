@@ -10,7 +10,8 @@ import { schemaPrice, type FormDataPrice } from '../../../../utils/rules'
 import RatingStarts from '../RatingStarts'
 import omit from 'lodash/omit'
 import type { QueryConfig } from '../../ProducList'
-
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 interface AsideFilterProps {
   queryConfig: QueryConfig
   categories: Categories
@@ -82,7 +83,9 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
             </g>
           </g>
         </svg>
-        <h2> Tất cả danh mục</h2>
+        <h2>
+          <Trans>Tất cả danh mục</Trans>
+        </h2>
       </Link>
       <div className='my-4 h-px bg-gray-300'></div>
       <ul>
@@ -132,11 +135,15 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
             />
           </g>
         </svg>
-        <h2> Bộ lọc tìm kiếm</h2>
+        <h2>
+          <Trans>Bộ lọc tìm kiếm</Trans>
+        </h2>
       </Link>
       <div className='my-4 h-px bg-gray-300'></div>
       <div className='my-5'>
-        <h3>Khoản giá</h3>
+        <h3>
+          <Trans>Khoản giá</Trans>
+        </h3>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-start'>
             <Controller
@@ -148,7 +155,7 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
                     type='text'
                     className='grow'
                     classNameInput='p-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm bg-white'
-                    placeholder='₫ TỪ'
+                    placeholder={t`₫ TỪ`}
                     {...field}
                     onChange={(e) => {
                       field.onChange(e)
@@ -169,7 +176,7 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
                     type='text'
                     className='grow'
                     classNameInput='p-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm bg-white'
-                    placeholder='₫ ĐẾN'
+                    placeholder={t`₫ ĐẾN`}
                     {...field}
                     onChange={(e) => {
                       field.onChange(e)
@@ -182,19 +189,21 @@ const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
           </div>
           {errors.price_min && <p className='mt-1 min-h-5 text-sm text-red-600'>{errors.price_min.message}</p>}
           <Button className='hover:bg-orange-80 mt-2 flex w-full items-center justify-center bg-orange-600 p-2 text-sm text-white uppercase'>
-            Áp dụng
+            <Trans>Áp dụng</Trans>
           </Button>
         </form>
       </div>
       <div className='my-4 h-px bg-gray-300'></div>
-      <h3 className='text-sm'>Đánh giá</h3>
+      <h3 className='text-sm'>
+        <Trans>Đánh giá</Trans>
+      </h3>
       <RatingStarts queryConfig={queryConfig} />
       <div className='my-4 h-px bg-gray-300'></div>
       <Button
         className='hover:bg-orange-80 flex w-full items-center justify-center bg-orange-600 p-2 text-sm text-white uppercase'
         onClick={() => handleRemoveAll()}
       >
-        Xoá tất cả
+        <Trans>Xoá tất cả</Trans>
       </Button>
     </aside>
   )

@@ -1,7 +1,7 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import type { QueryConfig } from '../../ProducList'
-
+import { Trans } from '@lingui/react/macro'
 interface RatingStartsrProps {
   queryConfig: QueryConfig
 }
@@ -76,7 +76,11 @@ const RatingStarts = ({ queryConfig }: RatingStartsrProps) => {
                     </svg>
                   )
                 })}
-              {index !== 0 && <span>trở lên</span>}
+              {index !== 0 && (
+                <span>
+                  <Trans>trở lên</Trans>
+                </span>
+              )}
             </div>
           </li>
         ))}

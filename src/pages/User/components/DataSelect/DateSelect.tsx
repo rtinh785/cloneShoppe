@@ -1,5 +1,6 @@
 import range from 'lodash/range'
 import { useState } from 'react'
+import { Trans } from '@lingui/react/macro'
 
 interface Props {
   onChange?: (value: Date) => void
@@ -30,7 +31,9 @@ const DateSelect = ({ onChange, value, errorMessage }: Props) => {
 
   return (
     <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-      <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>Ngày sinh:</div>
+      <div className='truncate pt-3 capitalize sm:w-[20%] sm:pr-2 sm:text-right'>
+        <Trans>Ngày sinh:</Trans>
+      </div>
       <div className='ms:pl-5 sm:w-[80%]'>
         <div className='flex justify-between'>
           <select
