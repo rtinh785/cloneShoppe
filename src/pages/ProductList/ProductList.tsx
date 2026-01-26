@@ -1,5 +1,5 @@
 import AsideFilter from './components/AsideFilter'
-import SortProducList from './components/SortProductList/SortProducList'
+
 import Product from './components/Product/index'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import productApi from '../../apis/product.api'
@@ -7,12 +7,13 @@ import Pagination from '../../components/Pagination'
 import type { ProductListConfig } from '../../types/product.type'
 import categoryApi from '../../apis/category.api'
 import useQueryConfig from '../../hooks/useQueryConfig'
+import SortProductList from './components/SortProductList'
 
 export type QueryConfig = {
   [key in keyof ProductListConfig]: string
 }
 
-const ProducList = () => {
+const ProductList = () => {
   const queryConfig = useQueryConfig()
 
   const { data: productsData } = useQuery({
@@ -43,10 +44,10 @@ const ProducList = () => {
               <AsideFilter queryConfig={queryConfig} categories={categoriesData?.data.data || []}></AsideFilter>
             </section>
             <section className='col-span-9'>
-              <SortProducList
+              <SortProductList
                 queryConfig={queryConfig}
                 pageSize={productsData.data.data.pagination.page_size}
-              ></SortProducList>
+              ></SortProductList>
               <section className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
                 {productsData.data.data.products.map((product) => (
                   <div className='col-span-1' key={product._id}>
@@ -63,4 +64,4 @@ const ProducList = () => {
   )
 }
 
-export default ProducList
+export default ProductList

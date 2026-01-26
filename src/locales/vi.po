@@ -21,23 +21,23 @@ msgstr " sản phẩm có sẵn"
 msgid " Thêm vào giỏ hàng"
 msgstr " Thêm vào giỏ hàng"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:179
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:179
 msgid "₫ ĐẾN"
 msgstr "₫ ĐẾN"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:158
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:158
 msgid "₫ TỪ"
 msgstr "₫ TỪ"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:192
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:192
 msgid "Áp dụng"
 msgstr "Áp dụng"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:80
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:80
 msgid "Bán chạy"
 msgstr "Bán chạy"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:139
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:139
 msgid "Bộ lọc tìm kiếm"
 msgstr "Bộ lọc tìm kiếm"
 
@@ -65,7 +65,7 @@ msgstr "Đăng nhập"
 msgid "Đăng xuất"
 msgstr "Đăng xuất"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:198
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:198
 msgid "Đánh giá"
 msgstr "Đánh giá"
 
@@ -90,15 +90,15 @@ msgstr "Đơn mua"
 msgid "Dung lượng file tối đa 1MB:"
 msgstr "Dung lượng file tối đa 1MB:"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:91
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:91
 msgid "Giá"
 msgstr "Giá"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:97
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:97
 msgid "Giá: Cao đến thấp"
 msgstr "Giá: Cao đến thấp"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:94
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:94
 msgid "Giá: Thấp đến cao"
 msgstr "Giá: Thấp đến cao"
 
@@ -110,7 +110,7 @@ msgstr "giảm"
 msgid "Hồ sơ của tôi"
 msgstr "Hồ sơ của tôi"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:145
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:145
 msgid "Khoản giá"
 msgstr "Khoản giá"
 
@@ -134,7 +134,7 @@ msgstr "Mật khẩu mới:"
 msgid "Mô tả sản phẩm"
 msgstr "Mô tả sản phẩm"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:71
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:71
 msgid "Mới nhất"
 msgstr "Mới nhất"
 
@@ -150,7 +150,7 @@ msgstr "Ngày sinh:"
 msgid "Nhập lại mật khẩu mới:"
 msgstr "Nhập lại mật khẩu mới:"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:62
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:62
 msgid "Phổ biến"
 msgstr "Phổ biến"
 
@@ -163,7 +163,7 @@ msgstr "Quản lý thông tin hồ sơ để bảo mật tài khoản"
 msgid "Sản phẩm mới thêm"
 msgstr "Sản phẩm mới thêm"
 
-#: src/pages/ProducList/components/SortProductList/SortProducList.tsx:53
+#: src/pages/ProductList/components/SortProductList/SortProductList.tsx:53
 msgid "Sắp xếp theo"
 msgstr "Sắp xếp theo"
 
@@ -188,7 +188,7 @@ msgstr "Sửa hồ sơ"
 msgid "Tài khoản của tôi"
 msgstr "Tài khoản của tôi"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:87
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:87
 msgid "Tất cả danh mục"
 msgstr "Tất cả danh mục"
 
@@ -213,7 +213,7 @@ msgstr "thêm vào giỏ hàng"
 msgid "Tổng giá tiền"
 msgstr "Tổng giá tiền"
 
-#: src/pages/ProducList/components/RatingStarts/RatingStarts.tsx:81
+#: src/pages/ProductList/components/RatingStarts/RatingStarts.tsx:81
 msgid "trở lên"
 msgstr "trở lên"
 
@@ -221,6 +221,6 @@ msgstr "trở lên"
 msgid "Xem giỏ hàng"
 msgstr "Xem giỏ hàng"
 
-#: src/pages/ProducList/components/AsideFilter/AsideFilter.tsx:206
+#: src/pages/ProductList/components/AsideFilter/AsideFilter.tsx:206
 msgid "Xoá tất cả"
 msgstr "Xoá tất cả"

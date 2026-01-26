@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaPrice, type FormDataPrice } from '../../../../utils/rules'
 import RatingStarts from '../RatingStarts'
 import omit from 'lodash/omit'
-import type { QueryConfig } from '../../ProducList'
+import type { QueryConfig } from '../../ProductList'
 import { Trans } from '@lingui/react/macro'
 import { t } from '@lingui/core/macro'
 interface AsideFilterProps {

@@ -1,4 +1,4 @@
-import type { QueryConfig } from '../pages/ProducList/ProducList'
+import type { QueryConfig } from '../pages/ProductList/ProductList'
 import useQueryParams from './useQueryParams'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'

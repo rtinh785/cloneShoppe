@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
 import omit from 'lodash/omit'
-import type { QueryConfig } from '../../ProducList'
+import type { QueryConfig } from '../../ProductList'
 import { Trans } from '@lingui/react/macro'
 
 interface PaginationProps {
@@ -13,7 +13,7 @@ interface PaginationProps {
   pageSize: number
 }
 
-const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
+const SortProductList = ({ queryConfig, pageSize }: PaginationProps) => {
   const page = Number(queryConfig.page)
   const { sort_by = sortBy.createdAt, order } = queryConfig
   const nagivate = useNavigate()
@@ -178,4 +178,4 @@ const SortProducList = ({ queryConfig, pageSize }: PaginationProps) => {
   )
 }
 
-export default SortProducList
+export default SortProductList

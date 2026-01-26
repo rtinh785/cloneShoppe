@@ -1,6 +1,6 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from '../../../../constants/path'
-import type { QueryConfig } from '../../ProducList'
+import type { QueryConfig } from '../../ProductList'
 import { Trans } from '@lingui/react/macro'
 interface RatingStartsrProps {
   queryConfig: QueryConfig

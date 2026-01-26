@@ -12,7 +12,7 @@ import Header from './components/Header'
 import ScrollToTop from './components/ScrollToTop'
 
 const Login = lazy(() => import('./pages/Login'))
-const ProducList = lazy(() => import('./pages/ProducList'))
+const ProductList = lazy(() => import('./pages/ProductList'))
 const Profile = lazy(() => import('./pages/User/pages/Profile'))
 const Register = lazy(() => import('./pages/Register'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
@@ -41,7 +41,7 @@ const useRouteElements = () => {
       element: (
         <MainLayout>
           <Suspense>
-            <ProducList />
+            <ProductList />
           </Suspense>
         </MainLayout>
       )

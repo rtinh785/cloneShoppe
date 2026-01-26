@@ -6,7 +6,7 @@ import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } 
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Product as ProductType, ProductListConfig } from '../../types/product.type'
-import Product from '../ProducList/components/Product'
+import Product from '../ProductList/components/Product'
 import QuantityController from '../../components/QuantityController'
 import purchaseApi from '../../apis/purchases'
 import { purchaseStatuses } from '../../constants/purchase'
