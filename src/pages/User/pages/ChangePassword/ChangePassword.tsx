@@ -12,7 +12,6 @@ import type { ErroResponse } from '../../../../types/utils.type'
 import Button from '../../../../components/Button'
 
 import { Trans } from '@lingui/react/macro'
-import { t } from '@lingui/core/macro'
 
 type FormData = Pick<UserSchema, 'password' | 'new_password' | 'confirm_password'>
 const passwordSchema = userSchema.pick(['password', 'new_password', 'confirm_password']) as yup.ObjectSchema<FormData>
