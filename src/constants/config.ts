@@ -1,5 +1,7 @@
+const apiUrl = import.meta.env.VITE_API_URL
+
 const config = {
-  baseURL: 'https://api-ecom.duthanhduoc.com/'
-}
+  baseURL: apiUrl
+} as const
 
 export default config
